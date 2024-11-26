@@ -15,28 +15,31 @@
 
 <p align="center" style="line-height: 2; margin: 0;">
   <!-- First Row -->
-  <img src="docs/static/media/vcluster_square_icon.svg" alt="Website" width="30" height="30"> 
-  [**Website**](https://www.vcluster.com)
-
-  ![Twitter](https://img.shields.io/twitter/follow/loft_sh?style=social) 
-  [**Follow us on Twitter**](https://twitter.com/loft_sh)
-
-  ![Documentation](https://img.shields.io/badge/docs-vcluster-blue) 
-  [**Docs**](https://www.vcluster.com/docs/what-are-virtual-clusters)
+  <a href="https://www.vcluster.com" style="text-decoration: none; margin-right: 15px; display: inline-flex; align-items: center;">
+    <img src="docs/static/media/vcluster_square_icon.svg" alt="Website" width="30" height="30" style="vertical-align: middle;"> 
+    <span style="margin-left: 5px; font-size: 16px; color: #007ec6;">Website</span>
+  </a>
+  <a href="https://twitter.com/loft_sh" style="text-decoration: none; margin-right: 15px; display: inline-block;">
+    <img src="https://img.shields.io/twitter/follow/loft_sh?style=social" alt="Twitter" width="150" height="30">
+  </a>
+  <a href="https://www.vcluster.com/docs/what-are-virtual-clusters" style="text-decoration: none; margin-right: 15px; display: inline-block;">
+    <img src="https://img.shields.io/badge/docs-vcluster-blue" alt="Documentation" width="150" height="30">
+  </a>
 </p>
 <p align="center" style="line-height: 2; margin: 0;">
   <!-- Second Row -->
-  ![GoDoc](https://godoc.org/github.com/loft-sh/vcluster?status.svg) 
-  [**Reference**](https://godoc.org/github.com/loft-sh/vcluster)
-
-  ![License](https://img.shields.io/github/license/loft-sh/vcluster) 
-  [**Apache-2.0**](LICENSE)
-
-  ![Slack](docs/static/media/slack.svg) 
-  [**Join us on Slack!**](https://slack.loft.sh/)
-
-  ![DevPod](https://devpod.sh/assets/open-in-devpod.svg) 
-  [**Open in DevPod**](https://devpod.sh/open#https://github.com/loft-sh/vcluster)
+  <a href="https://godoc.org/github.com/loft-sh/vcluster" style="text-decoration: none; margin-right: 15px; display: inline-block;">
+    <img src="https://godoc.org/github.com/loft-sh/vcluster?status.svg" alt="GoDoc" width="150" height="30">
+  </a>
+  <a href="LICENSE" style="text-decoration: none; margin-right: 15px; display: inline-block;">
+    <img src="https://img.shields.io/github/license/loft-sh/vcluster" alt="License" width="150" height="30">
+  </a>
+  <a href="https://slack.loft.sh/" style="text-decoration: none; margin-right: 15px; display: inline-block;">
+    <img src="docs/static/media/slack.svg" alt="Join us on Slack!" width="150" height="30">
+  </a>
+  <a href="https://devpod.sh/open#https://github.com/loft-sh/vcluster" style="text-decoration: none; display: inline-block;">
+    <img src="https://devpod.sh/assets/open-in-devpod.svg" alt="Open in DevPod!" width="150" height="30">
+  </a>
 </p>
 
 
