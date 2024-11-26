@@ -12,9 +12,10 @@
     </picture>
   </a>
 </div>
-
+[![Website](https://www.vcluster.com)](WEBSITE)
+[![X](https://twitter.com/loft_sh)](X)
+[![Documentation](https://www.vcluster.com/docs/what-are-virtual-clusters)](DOCUMENTATION)
 [![Slack](http://www.pulumi.com/images/docs/badges/slack.svg)](https://loft-sh.slack.com/join/shared_invite/zt-2q2bel3hz-YRK4vdH62~sCgl56D8fOnw?__hstc=153240615.c0daf17ef6c92a745313110afc51df68.1715958334773.1732617087376.1732622723048.66&__hssc=153240615.1.1732622723048&__hsfp=3786297030&_gl=1*h4rb8m*_gcl_au*MzAwMTgwMDY1LjE3MzEzMjcyMzE.*_ga*MTYxODM5MDk1OC4xNzE4NDY3OTgw*_ga_4RQQZ3WGE9*MTczMjYyMDg3NC4xNTUuMS4xNzMyNjIyNzIxLjYwLjAuMTM0NjYyNjI2Nw..#/shared-invite/email)
-![GitHub Discussions](https://img.shields.io/github/discussions/pulumi/pulumi)
 [![GoDoc](https://godoc.org/github.com/loft-sh/vcluster?status.svg)](https://godoc.org/github.com/loft-sh/vcluster)
 [![License](https://img.shields.io/github/license/loft-sh/vcluster)](LICENSE)
 
