@@ -13,22 +13,16 @@
   </a>
 </div>
 
-[![Website](https://www.vcluster.com/static/logo.svg)](https://www.vcluster.com)
+[![Website](docs/static/media/vcluster_square_icon.svg)](https://www.vcluster.com)
 [![X](https://img.shields.io/twitter/follow/loft_sh?style=social)](https://twitter.com/loft_sh)
 [![Documentation](https://img.shields.io/badge/docs-vcluster-blue)](https://www.vcluster.com/docs/what-are-virtual-clusters)
-[![Slack](https://www.pulumi.com/images/docs/badges/slack.svg)](https://slack.loft.sh/)
 [![GoDoc](https://godoc.org/github.com/loft-sh/vcluster?status.svg)](https://godoc.org/github.com/loft-sh/vcluster)
 [![License](https://img.shields.io/github/license/loft-sh/vcluster)](LICENSE)
 [![Join us on Slack!](docs/static/media/slack.svg)](https://slack.loft.sh/)
 [![Open in DevPod!](https://devpod.sh/assets/open-in-devpod.svg)](https://devpod.sh/open#https://github.com/loft-sh/vcluster)
-
-
-### **[Website](https://www.vcluster.com)** • **[Quickstart](https://www.vcluster.com/docs/get-started/)** • **[Documentation](https://www.vcluster.com/docs/what-are-virtual-clusters)** • **[Blog](https://loft.sh/blog)** • **[Twitter](https://twitter.com/loft_sh)** • **[Slack](https://slack.loft.sh/)**
-
 ![Latest Release](https://img.shields.io/github/v/release/loft-sh/vcluster?style=for-the-badge&label=Latest%20Release&color=%23007ec6)
 ![License: Apache-2.0](https://img.shields.io/github/license/loft-sh/vcluster?style=for-the-badge&color=%23007ec6)
 
-[![Join us on Slack!](docs/static/media/slack.svg)](https://slack.loft.sh/) [![Open in DevPod!](https://devpod.sh/assets/open-in-devpod.svg)](https://devpod.sh/open#https://github.com/loft-sh/vcluster)
 
 Virtual clusters are fully functional Kubernetes clusters nested inside a physical host cluster providing better isolation and flexibility to support multi-tenancy. Multiple teams can operate independently within the same physical infrastructure while minimizing conflicts, maximizing autonomy, and reducing costs.
 
