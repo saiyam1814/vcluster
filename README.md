@@ -22,9 +22,9 @@
 [![Open in DevPod!](https://devpod.sh/assets/open-in-devpod.svg)](https://devpod.sh/open#https://github.com/loft-sh/vcluster)
 ![Latest Release](https://img.shields.io/github/v/release/loft-sh/vcluster?style=for-the-badge&label=Latest%20Release&color=%23007ec6)
 ![License: Apache-2.0](https://img.shields.io/github/license/loft-sh/vcluster?style=for-the-badge&color=%23007ec6)
-<p align="center">
+<p>
   <a href="https://www.vcluster.com">
-    <img src="docs/static/media/vcluster_square_icon.svg" alt="Website" width="30" height="30">
+    <img src="docs/static/media/vcluster_square_icon.svg" alt="Website" width="30" height="30"> Website
   </a>
 </p>
 
