@@ -4,7 +4,7 @@
   <a href="https://www.vcluster.com" target="_blank">
     <picture>
       <!-- For Dark Mode -->
-      <source media="(prefers-color-scheme: dark)" srcset="docs/static/media/vcluster_horizontal_orange_whilte.svg">
+      <source media="(prefers-color-scheme: dark)" srcset="docs/static/media/vcluster_horizontal_orange_white.svg">
       <!-- For Light Mode -->
       <source media="(prefers-color-scheme: light)" srcset="docs/static/media/vcluster_horizontal_orange_black.svg">
       <!-- Fallback -->
