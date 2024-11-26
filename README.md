@@ -22,13 +22,11 @@
 [![Open in DevPod!](https://devpod.sh/assets/open-in-devpod.svg)](https://devpod.sh/open#https://github.com/loft-sh/vcluster)
 ![Latest Release](https://img.shields.io/github/v/release/loft-sh/vcluster?style=for-the-badge&label=Latest%20Release&color=%23007ec6)
 ![License: Apache-2.0](https://img.shields.io/github/license/loft-sh/vcluster?style=for-the-badge&color=%23007ec6)
-<p>
   <a href="https://www.vcluster.com">
     <img src="docs/static/media/vcluster_square_icon.svg" alt="Website" width="30" height="30"> Website
   </a>
-</p>
 
-Virtual clusters are fully functional Kubernetes clusters nested inside a physical host cluster providing better isolation and flexibility to support multi-tenancy. Multiple teams can operate independently within the same physical infrastructure while minimizing conflicts, maximizing autonomy, and reducing costs.
+Virtual clusters are fully conformant Kubernetes clusters nested inside a physical host cluster providing better isolation and flexibility to support multi-tenancy. Multiple teams can operate independently within the same physical infrastructure while minimizing conflicts, maximizing autonomy, and reducing costs.
 
 Virtual clusters run inside host cluster namespaces but function as separate Kubernetes clusters, with their own API server, control plane, syncer, and set of resources. While virtual clusters share the physical resources of the host cluster (such as CPU, memory, and storage), they manage their resources independently, allowing for efficient utilization and scaling.
 
