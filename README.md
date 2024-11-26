@@ -36,7 +36,6 @@
     <img src="https://devpod.sh/assets/open-in-devpod.svg" alt="Open in DevPod!" width="120" height="30">
   </a>
   <img src="https://img.shields.io/github/v/release/loft-sh/vcluster?style=for-the-badge&label=Latest%20Release&color=%23007ec6" alt="Latest Release" width="120" height="30">
-  <img src="https://img.shields.io/github/license/loft-sh/vcluster?style=for-the-badge&color=%23007ec6" alt="License: Apache-2.0" width="120" height="30">
 </p>
 
 
