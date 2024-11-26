@@ -1,5 +1,16 @@
 <br>
+
 <a href="https://www.vcluster.com"><img src="docs/static/media/vcluster_horizontal_black.svg" width="500"></a>
+<div align="center">
+  <a href="https://www.vcluster.com" target="_blank">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/static/media/vcluster_horizontal_orange_black.svg">
+      <source media="(prefers-color-scheme: light)" srcset="docs/static/media/vcluster_horizontal_orange_white.svg">
+      <img alt="vCluster Logo" src="logo-light.png">
+    </picture>
+  </a>
+</div>
+
 
 ### **[Website](https://www.vcluster.com)** • **[Quickstart](https://www.vcluster.com/docs/get-started/)** • **[Documentation](https://www.vcluster.com/docs/what-are-virtual-clusters)** • **[Blog](https://loft.sh/blog)** • **[Twitter](https://twitter.com/loft_sh)** • **[Slack](https://slack.loft.sh/)**
 
