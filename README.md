@@ -8,7 +8,7 @@
       <!-- For Light Mode -->
       <source media="(prefers-color-scheme: light)" srcset="docs/static/media/vcluster_horizontal_orange_black.svg">
       <!-- Fallback -->
-      <img alt="vCluster Logo" src="docs/static/media/vcluster_horizontal_orange_white.svg">
+      <img alt="vCluster Logo" src="docs/static/media/vcluster_horizontal_orange_white.svg" width="500">
     </picture>
   </a>
 </div>
