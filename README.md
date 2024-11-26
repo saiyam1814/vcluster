@@ -12,14 +12,15 @@
     </picture>
   </a>
 </div>
-[![Website](https://www.vcluster.com)]
-[![X](https://twitter.com/loft_sh)]
-[![Documentation](https://www.vcluster.com/docs/what-are-virtual-clusters)]
-[![Slack](http://www.pulumi.com/images/docs/badges/slack.svg)](https://slack.loft.sh/)
+[![Website](https://www.vcluster.com/static/logo.svg)](https://www.vcluster.com)
+[![X](https://img.shields.io/twitter/follow/loft_sh?style=social)](https://twitter.com/loft_sh)
+[![Documentation](https://img.shields.io/badge/docs-vcluster-blue)](https://www.vcluster.com/docs/what-are-virtual-clusters)
+[![Slack](https://www.pulumi.com/images/docs/badges/slack.svg)](https://slack.loft.sh/)
 [![GoDoc](https://godoc.org/github.com/loft-sh/vcluster?status.svg)](https://godoc.org/github.com/loft-sh/vcluster)
 [![License](https://img.shields.io/github/license/loft-sh/vcluster)](LICENSE)
 [![Join us on Slack!](docs/static/media/slack.svg)](https://slack.loft.sh/)
 [![Open in DevPod!](https://devpod.sh/assets/open-in-devpod.svg)](https://devpod.sh/open#https://github.com/loft-sh/vcluster)
+
 
 ### **[Website](https://www.vcluster.com)** • **[Quickstart](https://www.vcluster.com/docs/get-started/)** • **[Documentation](https://www.vcluster.com/docs/what-are-virtual-clusters)** • **[Blog](https://loft.sh/blog)** • **[Twitter](https://twitter.com/loft_sh)** • **[Slack](https://slack.loft.sh/)**
 
