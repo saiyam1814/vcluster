@@ -35,7 +35,12 @@
     <img src="https://img.shields.io/github/license/loft-sh/vcluster" alt="License" width="150" height="30">
   </a>
   <a href="https://slack.loft.sh/" style="text-decoration: none; margin-right: 15px; display: inline-block;">
-    <img src="docs/static/media/slack.svg" alt
+    <img src="docs/static/media/slack.svg" alt="Join us on Slack!" width="150" height="30">
+  </a>
+  <a href="https://devpod.sh/open#https://github.com/loft-sh/vcluster" style="text-decoration: none; display: inline-block;">
+    <img src="https://devpod.sh/assets/open-in-devpod.svg" alt="Open in DevPod!" width="150" height="30">
+  </a>
+</p>
 
 
 
