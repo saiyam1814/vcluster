@@ -15,32 +15,33 @@
 
 <p align="center" style="line-height: 2;">
   <!-- First Row -->
-  <a href="https://www.vcluster.com" style="margin-right: 10px;">
+  <a href="https://www.vcluster.com" style="text-decoration: none; margin-right: 15px;">
     <img src="docs/static/media/vcluster_square_icon.svg" alt="Website" width="30" height="30" style="vertical-align: middle;"> 
-    <span style="vertical-align: middle; font-size: 16px;">Website</span>
+    <span style="vertical-align: middle; font-size: 16px; color: #007ec6;">Website</span>
   </a>
-  <a href="https://twitter.com/loft_sh" style="margin-right: 10px;">
+  <a href="https://twitter.com/loft_sh" style="text-decoration: none; margin-right: 15px;">
     <img src="https://img.shields.io/twitter/follow/loft_sh?style=social" alt="Twitter" width="150" height="30">
   </a>
-  <a href="https://www.vcluster.com/docs/what-are-virtual-clusters" style="margin-right: 10px;">
+  <a href="https://www.vcluster.com/docs/what-are-virtual-clusters" style="text-decoration: none; margin-right: 15px;">
     <img src="https://img.shields.io/badge/docs-vcluster-blue" alt="Documentation" width="150" height="30">
   </a>
 </p>
 <p align="center" style="line-height: 2;">
   <!-- Second Row -->
-  <a href="https://godoc.org/github.com/loft-sh/vcluster" style="margin-right: 10px;">
+  <a href="https://godoc.org/github.com/loft-sh/vcluster" style="text-decoration: none; margin-right: 15px;">
     <img src="https://godoc.org/github.com/loft-sh/vcluster?status.svg" alt="GoDoc" width="150" height="30">
   </a>
-  <a href="LICENSE" style="margin-right: 10px;">
+  <a href="LICENSE" style="text-decoration: none; margin-right: 15px;">
     <img src="https://img.shields.io/github/license/loft-sh/vcluster" alt="License" width="150" height="30">
   </a>
-  <a href="https://slack.loft.sh/" style="margin-right: 10px;">
+  <a href="https://slack.loft.sh/" style="text-decoration: none; margin-right: 15px;">
     <img src="docs/static/media/slack.svg" alt="Join us on Slack!" width="150" height="30">
   </a>
-  <a href="https://devpod.sh/open#https://github.com/loft-sh/vcluster">
+  <a href="https://devpod.sh/open#https://github.com/loft-sh/vcluster" style="text-decoration: none;">
     <img src="https://devpod.sh/assets/open-in-devpod.svg" alt="Open in DevPod!" width="150" height="30">
   </a>
 </p>
+
 
 
 
