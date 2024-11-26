@@ -12,34 +12,8 @@
     </picture>
   </a>
 </div>
-<p align="center">
-  <a href="https://www.vcluster.com">
-    <img src="docs/static/media/vcluster_square_icon.svg" alt="Website" width="30" height="30">
-  </a>
-  <a href="https://twitter.com/loft_sh">
-    <img src="https://img.shields.io/twitter/follow/loft_sh?style=social" alt="X" width="120" height="30">
-  </a>
-  <a href="https://www.vcluster.com/docs/what-are-virtual-clusters">
-    <img src="https://img.shields.io/badge/docs-vcluster-blue" alt="Documentation" width="120" height="30">
-  </a>
-  <a href="https://godoc.org/github.com/loft-sh/vcluster">
-    <img src="https://godoc.org/github.com/loft-sh/vcluster?status.svg" alt="GoDoc" width="120" height="30">
-  </a>
-  <a href="LICENSE">
-    <img src="https://img.shields.io/github/license/loft-sh/vcluster" alt="License" width="120" height="30">
-  </a>
-  <a href="https://slack.loft.sh/">
-    <img src="docs/static/media/slack.svg" alt="Join us on Slack!" width="120" height="30">
-  </a>
-  <a href="https://devpod.sh/open#https://github.com/loft-sh/vcluster">
-    <img src="https://devpod.sh/assets/open-in-devpod.svg" alt="Open in DevPod!" width="120" height="30">
-  </a>
-  <img src="https://img.shields.io/github/v/release/loft-sh/vcluster?style=for-the-badge&label=Latest%20Release&color=%23007ec6" alt="Latest Release" width="120" height="30">
-  <img src="https://img.shields.io/github/license/loft-sh/vcluster?style=for-the-badge&color=%23007ec6" alt="License: Apache-2.0" width="120" height="30">
-</p>
 
-
-[![Website](docs/static/media/vcluster_square_icon.svg)](https://www.vcluster.com)
+ 
 [![X](https://img.shields.io/twitter/follow/loft_sh?style=social)](https://twitter.com/loft_sh)
 [![Documentation](https://img.shields.io/badge/docs-vcluster-blue)](https://www.vcluster.com/docs/what-are-virtual-clusters)
 [![GoDoc](https://godoc.org/github.com/loft-sh/vcluster?status.svg)](https://godoc.org/github.com/loft-sh/vcluster)
@@ -48,7 +22,11 @@
 [![Open in DevPod!](https://devpod.sh/assets/open-in-devpod.svg)](https://devpod.sh/open#https://github.com/loft-sh/vcluster)
 ![Latest Release](https://img.shields.io/github/v/release/loft-sh/vcluster?style=for-the-badge&label=Latest%20Release&color=%23007ec6)
 ![License: Apache-2.0](https://img.shields.io/github/license/loft-sh/vcluster?style=for-the-badge&color=%23007ec6)
-
+<p align="center">
+  <a href="https://www.vcluster.com">
+    <img src="docs/static/media/vcluster_square_icon.svg" alt="Website" width="30" height="30">
+  </a>
+</p>
 
 Virtual clusters are fully functional Kubernetes clusters nested inside a physical host cluster providing better isolation and flexibility to support multi-tenancy. Multiple teams can operate independently within the same physical infrastructure while minimizing conflicts, maximizing autonomy, and reducing costs.
 
