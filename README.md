@@ -1,6 +1,3 @@
-Here's the Markdown version of the updated README:
-
-```markdown
 <div align="center">
   <a href="https://www.vcluster.com" target="_blank">
     <picture>
