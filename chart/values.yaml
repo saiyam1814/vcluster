@@ -161,8 +161,8 @@ controlPlane:
       # controlPlane.distro.k8s.scheduler.image.tag
       # (or controlPlane.distro.k8s.controllerManager.image.tag or controlPlane.distro.k8s.apiServer.image.tag)
       # is set to v1.31.0,
-      # value from controlPlane.distro.k8s.<controlPlane-component>.image.tag will be used
-      # (where <controlPlane-component is apiServer, controllerManager and scheduler).
+      # value from controlPlane.distro.k8s.(controlPlane-component).image.tag will be used
+      # (where controlPlane-component is apiServer, controllerManager and scheduler).
       version: ""
       # APIServer holds configuration specific to starting the api server.
       apiServer:
@@ -413,7 +413,6 @@ controlPlane:
           annotations: {}
         # HeadlessService holds options for the external etcd headless service.
         headlessService:
-          enabled: true
           annotations: {}
   
   # Proxy defines options for the virtual cluster control plane proxy that is used to do authentication and intercept requests.
@@ -479,7 +478,7 @@ controlPlane:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              k8s-app: kube-dns
+              k8s-app: vcluster-kube-dns
   
   # Service defines options for vCluster service deployed by Helm.
   service:
@@ -732,6 +731,30 @@ integrations:
       # If VirtualMachineInstanceMigrations should get synced
       virtualMachineInstanceMigrations:
         enabled: true
+  
+  # CertManager reuses a host cert-manager and makes its CRDs from it available inside the vCluster.
+  # - Certificates and Issuers will be synced from the virtual cluster to the host cluster.
+  # - ClusterIssuers will be synced from the host cluster to the virtual cluster.
+  certManager:
+    # Enabled defines if this option should be enabled.
+    enabled: false
+    # Sync contains advanced configuration for syncing cert-manager resources.
+    sync:
+      toHost:
+        # Certificates defines if certificates should get synced from the virtual cluster to the host cluster.
+        certificates:
+          enabled: true
+        # Issuers defines if issuers should get synced from the virtual cluster to the host cluster.
+        issuers:
+          enabled: true
+      fromHost:
+        # ClusterIssuers defines if (and which) cluster issuers should get synced from the host cluster to the virtual cluster.
+        clusterIssuers:
+          # Enabled defines if this option should be enabled.
+          enabled: true
+          # Selector defines what cluster issuers should be imported.
+          selector:
+            labels: {}
 
 # RBAC options for the virtual cluster.
 rbac:

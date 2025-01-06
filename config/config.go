@@ -76,9 +76,6 @@ type Config struct {
 
 	// Plugin specifies which vCluster plugins to enable. Use "plugins" instead. Do not use this option anymore.
 	Plugin map[string]Plugin `json:"plugin,omitempty"`
-
-	// SleepMode holds the native sleep mode configuration for Pro clusters
-	SleepMode *SleepMode `json:"sleepMode,omitempty"`
 }
 
 // Integrations holds config for vCluster integrations with other operators or tools running on the host cluster
@@ -91,6 +88,43 @@ type Integrations struct {
 
 	// ExternalSecrets reuses a host external secret operator and makes certain CRDs from it available inside the vCluster
 	ExternalSecrets ExternalSecrets `json:"externalSecrets,omitempty"`
+
+	// CertManager reuses a host cert-manager and makes its CRDs from it available inside the vCluster.
+	// - Certificates and Issuers will be synced from the virtual cluster to the host cluster.
+	// - ClusterIssuers will be synced from the host cluster to the virtual cluster.
+	CertManager CertManager `json:"certManager,omitempty"`
+}
+
+// CertManager reuses a host cert-manager and makes its CRDs from it available inside the vCluster
+type CertManager struct {
+	EnableSwitch
+
+	// Sync contains advanced configuration for syncing cert-manager resources.
+	Sync CertManagerSync `json:"sync,omitempty"`
+}
+
+type CertManagerSync struct {
+	ToHost   CertManagerSyncToHost   `json:"toHost,omitempty"`
+	FromHost CertManagerSyncFromHost `json:"fromHost,omitempty"`
+}
+
+type CertManagerSyncToHost struct {
+	// Certificates defines if certificates should get synced from the virtual cluster to the host cluster.
+	Certificates EnableSwitch `json:"certificates,omitempty"`
+
+	// Issuers defines if issuers should get synced from the virtual cluster to the host cluster.
+	Issuers EnableSwitch `json:"issuers,omitempty"`
+}
+
+type CertManagerSyncFromHost struct {
+	// ClusterIssuers defines if (and which) cluster issuers should get synced from the host cluster to the virtual cluster.
+	ClusterIssuers ClusterIssuersSyncConfig `json:"clusterIssuers,omitempty"`
+}
+
+type ClusterIssuersSyncConfig struct {
+	EnableSwitch
+	// Selector defines what cluster issuers should be imported.
+	Selector LabelSelector `json:"selector,omitempty"`
 }
 
 // ExternalSecrets reuses a host external secret operator and makes certain CRDs from it available inside the vCluster
@@ -970,8 +1004,8 @@ type DistroK8s struct {
 	// controlPlane.distro.k8s.scheduler.image.tag
 	//(or controlPlane.distro.k8s.controllerManager.image.tag or controlPlane.distro.k8s.apiServer.image.tag)
 	// is set to v1.31.0,
-	// value from controlPlane.distro.k8s.<controlPlane-component>.image.tag will be used
-	// (where <controlPlane-component is apiServer, controllerManager and scheduler).
+	// value from controlPlane.distro.k8s.(controlPlane-component).image.tag will be used
+	// (where controlPlane-component is apiServer, controllerManager and scheduler).
 	Version string `json:"version,omitempty"`
 
 	// APIServer holds configuration specific to starting the api server.
@@ -1180,9 +1214,6 @@ type EtcdDeployService struct {
 }
 
 type EtcdDeployHeadlessService struct {
-	// Enabled defines if the etcd headless service should be deployed
-	Enabled bool `json:"enabled,omitempty"`
-
 	// Annotations are extra annotations for the external etcd headless service
 	Annotations map[string]string `json:"annotations,omitempty"`
 }
@@ -1621,21 +1652,6 @@ type ResourceQuota struct {
 	LabelsAndAnnotations `json:",inline"`
 }
 
-type LabelSelectorRequirement struct {
-	// key is the label key that the selector applies to.
-	Key string `json:"key"`
-
-	// operator represents a key's relationship to a set of values.
-	// Valid operators are In, NotIn, Exists and DoesNotExist.
-	Operator string `json:"operator"`
-
-	// values is an array of string values. If the operator is In or NotIn,
-	// the values array must be non-empty. If the operator is Exists or DoesNotExist,
-	// the values array must be empty. This array is replaced during a strategic
-	// merge patch.
-	Values []string `json:"values,omitempty"`
-}
-
 type LimitRange struct {
 	// Enabled defines if the limit range should be deployed by vCluster. "auto" means that if resourceQuota is enabled,
 	// the limitRange will be enabled as well.
@@ -1904,6 +1920,9 @@ type Experimental struct {
 
 	// DenyProxyRequests denies certain requests in the vCluster proxy.
 	DenyProxyRequests []DenyRule `json:"denyProxyRequests,omitempty" product:"pro"`
+
+	// SleepMode holds the native sleep mode configuration for Pro clusters
+	SleepMode *SleepMode `json:"sleepMode,omitempty"`
 }
 
 func (e Experimental) JSONSchemaExtend(base *jsonschema.Schema) {
@@ -2348,11 +2367,15 @@ type SleepModeAutoSleep struct {
 }
 
 // Duration allows for automatic Marshalling from strings like "1m" to a time.Duration
-type Duration time.Duration
+type Duration string
 
 // MarshalJSON implements Marshaler
 func (d Duration) MarshalJSON() ([]byte, error) {
-	return json.Marshal(time.Duration(d).String())
+	dur, err := time.ParseDuration(string(d))
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(dur.String())
 }
 
 // UnmarshalJSON implements Marshaler
@@ -2361,20 +2384,18 @@ func (d *Duration) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
-	switch value := v.(type) {
-	case float64:
-		*d = Duration(time.Duration(value))
-		return nil
-	case string:
-		tmp, err := time.ParseDuration(value)
-		if err != nil {
-			return err
-		}
-		*d = Duration(tmp)
-		return nil
-	default:
+
+	sval, ok := v.(string)
+	if !ok {
 		return errors.New("invalid duration")
 	}
+
+	_, err := time.ParseDuration(sval)
+	if err != nil {
+		return err
+	}
+	*d = Duration(sval)
+	return nil
 }
 
 // AutoWakeup holds the cron schedule to wake workloads automatically

@@ -86,8 +86,10 @@ func StartK8S(
 
 		if vConfig.ControlPlane.BackingStore.Etcd.Embedded.Enabled {
 			etcdEndpoints = "https://127.0.0.1:2379"
-		} else {
+		} else if vConfig.ControlPlane.BackingStore.Etcd.Deploy.Service.Enabled {
 			etcdEndpoints = "https://" + vConfig.Name + "-etcd:2379"
+		} else {
+			etcdEndpoints = "https://" + vConfig.Name + "-etcd-headless:2379"
 		}
 	}
 
@@ -95,6 +97,12 @@ func StartK8S(
 	if apiServer.Enabled {
 		eg.Go(func() error {
 			// build flags
+			issuer := "https://kubernetes.default.svc.cluster.local"
+
+			if vConfig.Networking.Advanced.ClusterDomain != "" {
+				issuer = "https://kubernetes.default.svc." + vConfig.Networking.Advanced.ClusterDomain
+			}
+
 			args := []string{}
 			if len(apiServer.Command) > 0 {
 				args = append(args, apiServer.Command...)
@@ -121,7 +129,7 @@ func StartK8S(
 				args = append(args, "--requestheader-group-headers=X-Remote-Group")
 				args = append(args, "--requestheader-username-headers=X-Remote-User")
 				args = append(args, "--secure-port=6443")
-				args = append(args, "--service-account-issuer=https://kubernetes.default.svc.cluster.local")
+				args = append(args, "--service-account-issuer="+issuer)
 				args = append(args, "--service-account-key-file=/data/pki/sa.pub")
 				args = append(args, "--service-account-signing-key-file=/data/pki/sa.key")
 				args = append(args, "--tls-cert-file=/data/pki/apiserver.crt")
