@@ -1,7 +1,6 @@
 <div align="center">
   <a href="https://www.vcluster.com" target="_blank">
 
-
 <picture>
       <!-- For Dark Mode -->
       <source media="(prefers-color-scheme: dark)" srcset="docs/static/media/vcluster_horizontal_orange_white.svg">
@@ -12,191 +11,355 @@
 </picture>	  
 
   </a>
+
+<br/><br/>
+
+### Flexible Tenancy For Kubernetes and AI Infra
+
+[![GitHub stars](https://img.shields.io/github/stars/loft-sh/vcluster?style=for-the-badge&logo=github&color=orange)](https://github.com/loft-sh/vcluster/stargazers)
+[![Slack](https://img.shields.io/badge/Slack-4.2K+-blue?style=for-the-badge&logo=slack)](https://slack.loft.sh/)
+[![License](https://img.shields.io/github/license/loft-sh/vcluster?style=for-the-badge)](https://github.com/loft-sh/vcluster/blob/main/LICENSE)
+[![Contributors](https://img.shields.io/github/contributors/loft-sh/vcluster?style=for-the-badge&logo=github)](https://github.com/loft-sh/vcluster/graphs/contributors)
+
+**[Website](https://www.vcluster.com)** • **[Quickstart](https://www.vcluster.com/docs/get-started/)** • **[Documentation](https://www.vcluster.com/docs/what-are-virtual-clusters)** • **[Blog](https://loft.sh/blog)** • **[Slack](https://slack.loft.sh/)**
+
 </div>
+
+---
+
+## What is vCluster?
+
+**vCluster** creates fully functional virtual Kubernetes clusters that run inside namespaces of a host cluster. Each virtual cluster has its own API server, runs on shared or dedicated infrastructure, and gives you flexible tenancy options—from simple namespaces to fully dedicated clusters.
+
+**40M+ virtual clusters deployed** by companies like Adobe, CoreWeave, Atlan, and NVIDIA.
 
 <div align="center">
 
-### **[Website](https://www.vcluster.com)** • **[Quickstart](https://www.vcluster.com/docs/get-started/)** • **[Documentation](https://www.vcluster.com/docs/what-are-virtual-clusters)** • **[Blog](https://loft.sh/blog)** • **[LinkedIn](https://www.linkedin.com/company/vcluster)** • **[X](https://x.com/vcluster)** • **[Slack](https://slack.loft.sh/)**
+![vCluster gif](./docs/static/media/vcluster-github-gif-1280.gif)
 
 </div>
 
-
-
 ---
 
-### 🚀 Get Started Quickly!
+## 🚀 Quick Start
 
-Deploy your first virtual cluster in just a few steps.
-
-#### Requirements:
-Before creating a virtual cluster, make sure you have:
-- A running **Kubernetes cluster**
-- `kubectl` installed and configured to point to your cluster
-
-#### Step 1: Install vCluster CLI
 ```bash
+# Install vCluster CLI
 brew install loft-sh/tap/vcluster
-```
 
-#### Step 2: Create a Virtual Cluster in the `team-x` namespace
-
-```bash
+# Create a virtual cluster
 vcluster create my-vcluster --namespace team-x
+
+# Connect to the virtual cluster
+vcluster connect my-vcluster --namespace team-x
+
+# Use kubectl as usual - you're now in your virtual cluster!
+kubectl get namespaces
 ```
-#### Step 3: Connect to the Virtual Cluster
+
+**Prerequisites:** A running Kubernetes cluster and `kubectl` configured.
+
+👉 **[Full Quickstart Guide](https://www.vcluster.com/docs/get-started)**
+
+---
+
+## 🎯 Use Cases
+
+### GPU & AI Infrastructure
+
+Build your internal GPU cloud with vCluster. Developers get fast, secure access to GPUs, and your organization maximizes utilization of every card—without sacrificing isolation.
+
+```yaml
+# vcluster.yaml - GPU tenant isolation
+sync:
+  fromHost:
+    nodes:
+      enabled: true
+      selector:
+        labels:
+          nvidia.com/gpu: "true"
+```
+
+### Bare Metal Kubernetes
+
+Run Kubernetes on bare metal with zero VMs. Virtual clusters and virtual nodes give you isolation without the expensive overhead.
+
+```yaml
+# vcluster.yaml - Standalone on bare metal
+controlPlane:
+  standalone:
+    enabled: true
+    joinNode: 
+      enabled: true
+privateNodes:
+  enabled: true
+```
+
+### Platform Engineering
+
+Build secure, scalable, multi-tenant Kubernetes environments. Empower every team with isolated, self-service access—without managing more physical clusters.
+
+```yaml
+# vcluster.yaml - Multi-tenant platform
+networking:
+  podCIDR: "10.244.0.0/16"
+policies:
+  networkPolicy:
+    enabled: true
+  resourceQuota:
+    enabled: true
+```
+
+---
+
+## 🏗️ Tenancy Models
+
+vCluster supports flexible tenancy to match your isolation requirements:
+
+| Model | Description | Use Case |
+|-------|-------------|----------|
+| **Shared Nodes** | Virtual clusters share the host's nodes and plugins | Dev environments, cost optimization |
+| **Dedicated Nodes** | Virtual clusters run on their own set of host-assigned nodes | Production workloads, tenant isolation |
+| **Private Nodes** | Fully separate nodes with their own CNI, CSI, and control | Maximum isolation, compliance |
+
+<details>
+<summary><strong>Shared Nodes Example</strong></summary>
+
+```yaml
+# vcluster.yaml
+sync:
+  fromHost:
+    nodes:
+      enabled: false  # Use pseudo nodes
+```
+</details>
+
+<details>
+<summary><strong>Dedicated Nodes Example</strong></summary>
+
+```yaml
+# vcluster.yaml
+sync:
+  fromHost:
+    nodes:
+      enabled: true
+      selector:
+        labels:
+          tenant: tenant-1
+```
+</details>
+
+<details>
+<summary><strong>Private Nodes Example</strong></summary>
+
+```yaml
+# vcluster.yaml
+privateNodes:
+  enabled: true
+controlPlane:
+  service:
+    spec:
+      type: NodePort  # or LoadBalancer
+```
+</details>
+
+---
+
+## ✨ Key Features
+
+### 🔒 Private Nodes <sup>NEW</sup>
+Assign dedicated worker nodes to virtual clusters with complete isolation. Workloads run directly on private nodes with their own CNI, CSI, and networking stack.
+
+### ⚡ Auto Nodes <sup>NEW</sup>
+Dynamic autoscaling powered by [Karpenter](https://karpenter.sh/). Scale virtual clusters across public cloud, private cloud, hybrid, and bare metal—eliminating cloud vendor lock-in.
+
+### 🖥️ Standalone Mode <sup>NEW</sup>
+Run vCluster directly on bare metal or VMs without a host cluster. Deploy the control plane on dedicated nodes for maximum isolation.
+
+### 🔄 Resource Syncing
+Sync any Kubernetes resource between virtual and host clusters. Built-in support for pods, services, secrets, configmaps, and CRDs.
+
+### 🔌 Integrations
+Native integrations with cert-manager, external-secrets, KubeVirt, Istio, and metrics-server.
+
+### 📊 High Availability
+Run multiple replicas with leader election. Use embedded etcd or external databases (PostgreSQL, MySQL, RDS) as backing stores.
+
+---
+
+## 🌍 Deploy Anywhere
+
+<table>
+<tr>
+<td align="center"><strong>EKS</strong></td>
+<td align="center"><strong>GKE</strong></td>
+<td align="center"><strong>AKS</strong></td>
+<td align="center"><strong>OpenShift</strong></td>
+<td align="center"><strong>Rancher</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>Bare Metal</strong></td>
+<td align="center"><strong>KubeVirt</strong></td>
+<td align="center"><strong>Tanzu</strong></td>
+<td align="center"><strong>Private Cloud</strong></td>
+<td align="center"><strong>Standalone</strong></td>
+</tr>
+</table>
+
+---
+
+## 📖 Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     Host Cluster                            │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │              vCluster Namespace                      │   │
+│  │  ┌─────────────────────────────────────────────┐    │   │
+│  │  │           Virtual Cluster                    │    │   │
+│  │  │  ┌─────────────┐  ┌─────────────────────┐   │    │   │
+│  │  │  │ API Server  │  │  Controller Manager │   │    │   │
+│  │  │  └─────────────┘  └─────────────────────┘   │    │   │
+│  │  │  ┌─────────────┐  ┌─────────────────────┐   │    │   │
+│  │  │  │   Syncer    │  │      CoreDNS        │   │    │   │
+│  │  │  └─────────────┘  └─────────────────────┘   │    │   │
+│  │  └─────────────────────────────────────────────┘    │   │
+│  │                                                      │   │
+│  │  ┌────────────┐ ┌────────────┐ ┌────────────┐       │   │
+│  │  │  Pod (app) │ │  Pod (app) │ │  Service   │       │   │
+│  │  └────────────┘ └────────────┘ └────────────┘       │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+Each virtual cluster includes:
+- **Dedicated API server** — Full Kubernetes API isolation
+- **Syncer** — Bi-directional resource synchronization  
+- **Optional components** — Scheduler, CoreDNS, etcd
+
+---
+
+## 🌟 Why vCluster?
+
+<details>
+<summary><strong>Security & Isolation</strong></summary>
+
+- **Granular permissions** — Users operate with minimized host cluster permissions while having admin-level control within their vCluster
+- **Isolated control plane** — Each vCluster has its own dedicated API server
+- **Customizable policies** — Apply OPA, network policies, resource quotas per tenant
+- **Separate backing stores** — SQLite, embedded etcd, or external databases
+</details>
+
+<details>
+<summary><strong>Full Tenant Access</strong></summary>
+
+- **Admin capabilities** — Deploy CRDs, create namespaces, manage cluster-scoped resources
+- **Isolated networking** — Pods in different virtual clusters cannot communicate by default
+- **Node management** — Assign static nodes or share node pools
+</details>
+
+<details>
+<summary><strong>Cost Efficiency</strong></summary>
+
+- **Lightweight** — Spin up clusters in seconds (vs. ~45 min for EKS)
+- **Resource sharing** — Minimize infrastructure by sharing host resources
+- **Single pod control plane** — Minimal operational overhead
+</details>
+
+<details>
+<summary><strong>Flexibility</strong></summary>
+
+- **Multi-version support** — Run different Kubernetes versions with version skew
+- **Multiple distros** — K8s, K3s, and more
+- **Adaptable storage** — SQLite to enterprise etcd to RDS
+</details>
+
+---
+
+## 🏢 Trusted By
+
+<table>
+<tr>
+<td><strong>Atlan</strong><br/>100 → 1 clusters</td>
+<td><strong>Aussie Broadband</strong><br/>99% faster provisioning</td>
+<td><strong>CoreWeave</strong><br/>GPU cloud at scale</td>
+</tr>
+<tr>
+<td><strong>Adobe</strong><br/>Enhanced dev environments</td>
+<td><strong>Codefresh</strong><br/>Hosted ArgoCD</td>
+<td><strong>Scanmetrix</strong><br/>99% faster deployments</td>
+</tr>
+</table>
+
+**Also used by:** NVIDIA, ABBYY, Lintasarta, Precisely, Shipwire, Trade Connectors, and many more.
+
+👉 **[View Case Studies](https://www.vcluster.com/case-studies)**
+
+---
+
+## 📚 Learn More
+
+### Conference Talks
+
+| Event | Title | Link |
+|-------|-------|------|
+| HashiConf 2025 | GPU sharing done right with Vault and vCluster | [Watch](https://www.youtube.com/watch?v=zWx17azSqyU) |
+| KubeCon EU 2023 | How We Securely Scaled Multi-Tenancy with vCluster | [Watch](https://www.youtube.com/watch?v=hFiHU6W4_z0) |
+| KubeCon NA 2022 | How Adobe Planned For Scale With vCluster | [Watch](https://www.youtube.com/watch?v=p8BluR5WT5w) |
+| KubeCon NA 2021 | Virtual Clusters are the Future of Multi-Tenancy | [Watch](https://www.youtube.com/watch?v=QddWNqchD9I) |
+
+### Community Resources
+
+| Channel | Title | Link |
+|---------|-------|------|
+| TeKanAid | Build Your IDP with Backstage, Crossplane, and ArgoCD | [Watch](https://www.youtube.com/watch?v=nIxl2PcEs-0) |
+| DevOps Toolkit | How To Create Virtual Kubernetes Clusters | [Watch](https://www.youtube.com/watch?v=JqBjpvp268Y) |
+| TechWorld with Nana | Build your Self-Service Kubernetes Platform | [Watch](https://www.youtube.com/watch?v=tt7hope6zU0) |
+| Kubesimplify | Let's Learn vCluster | [Watch](https://www.youtube.com/watch?v=I4mztvnRCjs) |
+
+👉 **[YouTube Channel](https://www.youtube.com/@vcluster)** • **[Blog](https://loft.sh/blog)**
+
+---
+
+## 🤝 Contributing
+
+We love contributions! Whether it's bug fixes, new features, or documentation improvements.
 
 ```bash
-vcluster connect my-vcluster --namespace team-x
+# Quick start with DevPod
 ```
 
-![vCluster gif](./docs/static/media/vcluster-github-gif-1280.gif)
+[![Open in DevPod!](https://devpod.sh/assets/open-in-devpod.svg)](https://devpod.sh/open#https://github.com/loft-sh/vcluster)
 
-For detailed steps, visit our [Quickstart Documentation](https://www.vcluster.com/docs/get-started).
-
----
-
-### 🌟Why vCluster?
-
-<details>
-<summary><strong>Robust Security and Isolation</strong></summary>
-
-- **Granular Permissions**:  
-  vCluster users operate with minimized permissions in the host cluster, significantly reducing the risk of privileged access misuse. Within their vCluster, users have admin-level control, enabling them to manage CRDs, RBAC, and other security policies independently.
-
-- **Isolated Control Plane**:  
-  Each vCluster comes with its own dedicated API server and control plane, creating a strong isolation boundary.
-
-- **Customizable Security Policies**:  
-  Tenants can implement additional vCluster-specific governance, including OPA policies, network policies, resource quotas, limit ranges, and admission control, in addition to the existing policies and security measures in the underlying physical host cluster.
-
-- **Enhanced Data Protection**:  
-  With options for separate backing stores, including embedded SQLite, etcd, or external databases, virtual clusters allow for isolated data management, reducing the risk of data leakage between tenants.
-
-</details>
-
-<details>
-<summary><strong>Access for Tenants</strong></summary>
-
-- **Full Admin Access per Tenant**:  
-  Tenants can freely deploy CRDs, create namespaces, taint, and label nodes, and manage cluster-scoped resources typically restricted in standard Kubernetes namespaces.
-
-- **Isolated yet Integrated Networking**:  
-  While ensuring automatic isolation (for example, pods in different virtual clusters cannot communicate by default), vCluster allows for configurable network policies and service sharing, supporting both separation and sharing as needed.
-
-- **Node Management**:  
-  Assign static nodes to specific virtual clusters or share node pools among multiple virtual clusters, providing flexibility in resource allocation.
-
-</details>
-
-<details>
-<summary><strong>Cost-Effectiveness and Reduced Overhead</strong></summary>
-
-- **Lightweight Infrastructure**:  
-  Virtual clusters are significantly more lightweight than physical clusters, able to spin up in seconds, which contrasts sharply with the lengthy provisioning times often seen in environments like EKS (~45 minutes).
-
-- **Resource Efficiency**:  
-  By sharing the underlying host cluster's resources, virtual clusters minimize the need for additional physical infrastructure, reducing costs and environmental impact.
-
-- **Simplified Management**:  
-  The vCluster control plane, running inside a single pod, along with optional integrated CoreDNS, minimizes the operational overhead, making virtual clusters especially suitable for large-scale deployments and multi-tenancy scenarios.
-
-</details>
-
-<details>
-<summary><strong>Enhanced Flexibility and Compatibility</strong></summary>
-
-- **Diverse Kubernetes Environments**:  
-  vCluster supports different Kubernetes versions and distributions (including K8s and K3s), allowing version skews. This makes it possible to tailor each virtual cluster to specific requirements without impacting others.
-
-- **Adaptable Backing Stores**:  
-  Choose from a range of data stores, from lightweight (SQLite) to enterprise-grade options (embedded etcd, external data stores like Global RDS), catering to various scalability and durability needs.
-
-- **Runs Anywhere**:  
-  Virtual clusters can run on EKS, GKE, AKS, OpenShift, RKE, K3s, cloud, edge, and on-prem. As long as it's a K8s cluster, you can run a virtual cluster on top of it.
-
-</details>
-
-<details>
-<summary><strong>Improved Scalability</strong></summary>
-
-- **Reduced API Server Load**:  
-  Virtual clusters, each with their own dedicated API server, significantly reduce the operational load on the host cluster's Kubernetes API server by isolating and handling requests internally.
-
-- **Conflict-Free CRD Management**:  
-  Independent management of CRDs within each virtual cluster eliminates the potential for CRD conflicts and version discrepancies, ensuring smoother operations and easier scaling as the user base expands.
-
-</details>
-
+👉 **[Contributing Guide](https://github.com/loft-sh/vcluster/blob/main/CONTRIBUTING.md)**
 
 ---
 
-### 📚 Expand Your Knowledge
-#### Conference Talks
-| Event             | Speaker         | Title                                           | YouTube Link                          |
-|--------------------|----------------|-------------------------------------------------|---------------------------------------|
-| HashiConf 2025| Scott McAllister| GPU sharing done right: Secrets, security, and scaling with Vault and vCluster | [Watch Here](https://www.youtube.com/watch?v=zWx17azSqyU) |
-| CNCF Book Club 2024| Marc Boorshtein| Kubernetes - An Enterprise Guide (vCluster) | [Watch Here](https://www.youtube.com/watch?v=8vwnDlkkuJM) |
-| KCD NYC 2024   | Lukas Gentele    | Tenant Autonomy & Isolation In Multi-Tenant Kubernetes Clusters | [Watch Here](https://www.youtube.com/watch?v=AKJVLbXsUmE&t=758s)| 
-| KubeCon Eu 2023   | Ilia Medvedev & Kostis Kapelonis | How We Securely Scaled Multi-Tenancy with VCluster, Crossplane, and Argo CD | [Watch Here](https://www.youtube.com/watch?v=hFiHU6W4_z0) |
-|Solo Webinar 2022 | Rich and Fabian | Speed your Istio development environment with vCluster | [Watch Here](https://www.youtube.com/watch?v=b7OkYjvLf4Y)|
-|Mirantis Tech Talks 2022| Mirantis |Multi-tenancy & Isolation using Virtual Clusters (vCluster) in K8s| [Watch Here](https://www.youtube.com/watch?v=CoqRXdJbCwY) |
-| TGI 2022 | TGI | TGI Kubernetes 188: vCluster | [Watch Here](https://www.youtube.com/watch?v=EaoxUDGpARE)|
-| KubeCon NA 2022 | Whitney Lee & Mauricio Salatino | What a RUSH! Let's Deploy Straight to Production! | [Watch Here](https://www.youtube.com/watch?v=eJG7uIU9NpM) | 
-| KubeCon NA 2022   | Joseph Sandoval & Dan Garfield       | How Adobe Planned For Scale With Argo CD, Cluster API, And VCluster| [Watch Here](https://www.youtube.com/watch?v=p8BluR5WT5w)| 
-| KubeCon NA 2021    | Lukas Gentele  | Beyond Namespaces: Virtual Clusters are the Future of Multi-Tenancy | [Watch Here](https://www.youtube.com/watch?v=QddWNqchD9I) |
+## 🔗 Links
 
-#### Community Voice
-| Youtube Channel             | Speaker         | Title                                           | YouTube Link                          |
-|--------------------|----------------|-------------------------------------------------|---------------------------------------|
-|TeKanAid 2024|TeKanAid|Getting Started with vCluster: Build Your IDP with Backstage, Crossplane, and ArgoCD | [Watch Here](https://www.youtube.com/watch?v=nIxl2PcEs-0)|
-| DevOps Toolkit 2021 | Viktor Farcic |  How To Create Virtual Kubernetes Clusters | [Watch Here](https://www.youtube.com/watch?v=JqBjpvp268Y&t=82s) |
-| TechWorld with Nana 2021 | Nana | Build your Self-Service Kubernetes Platform with Virtual Clusters  | [Watch Here](https://www.youtube.com/watch?v=tt7hope6zU0)
-| Kubesimplify 2021 | Saiyam Pathak and Lukas Gentele | Let's Learn vCluster| [Watch Here](https://www.youtube.com/watch?v=I4mztvnRCjs&t=1s) |
-| Rawkode 2021 | David and Lukas | Hands on Introduction to vCluster | [Watch Here](https://www.youtube.com/watch?v=IMdMvn2_LeI) | 
-
-Explore more vCluster tips on our [Youtube Channel](https://www.youtube.com/@vcluster) and [Blogs](https://loft.sh/blog).
+| Resource | Link |
+|----------|------|
+| 📖 Documentation | [vcluster.com/docs](https://www.vcluster.com/docs/what-are-virtual-clusters) |
+| 💬 Slack Community | [slack.loft.sh](https://slack.loft.sh/) |
+| 🌐 Website | [vcluster.com](https://www.vcluster.com) |
+| 🐦 X (Twitter) | [@vcluster](https://x.com/vcluster) |
+| 💼 LinkedIn | [vCluster](https://www.linkedin.com/company/vcluster) |
+| 💬 Chat with Expert | [Start Chat](https://start-chat.com/slack/Loft-Labs/NnQl1M) |
 
 ---
 
-### 💻 Contribute to vCluster
-We love contributions! Check out our [Contributing Guide](https://github.com/loft-sh/vcluster/blob/main/CONTRIBUTING.md).
+## 📜 License
 
-For quick local development, use [![Open in DevPod!](https://devpod.sh/assets/open-in-devpod.svg)](https://devpod.sh/open#https://github.com/loft-sh/vcluster)
-
----
-
-### 🔗 Useful Links
-- [Documentation](https://www.vcluster.com/docs/what-are-virtual-clusters)
-- [Slack Community](https://slack.loft.sh/)
-- [vCluster Website](https://www.vcluster.com)
-- [Chat with an Expert](https://start-chat.com/slack/Loft-Labs/NnQl1M)
-
----
-### Adopters
-
-We're glad to see vCluster being adopted by organizations around the world! Below are just a few examples of how vCluster is being used in production environments:
-- **[Atlan](https://www.vcluster.com/case-studies/atlan)**: Atlan Reduced Their Infrastructure From 100 Kubernetes Clusters To 1 Using vCluster.
-- **[Adobe](https://www.youtube.com/watch?v=p8BluR5WT5w)**: Enhancing development environments with virtual clusters.
-- **[Aussie Broadband](https://www.vcluster.com/case-studies/aussie-broadband)**:  Aussie Broadband Achieved 99% Faster Cluster Provisioning with vCluster.
-- **[Codefresh](https://www.loft.sh/blog/how-codefresh-uses-vcluster-to-provide-hosted-argo-cd)**: Codefresh uses vCluster to provide hosted ArgoCD.
-- **[CoreWeave](https://www.coreweave.com/blog/coreweave-and-loft-labs-leverage-vcluster-in-kubernetes-at-scale)**: CoreWeave and Loft Labs Leverage vCluster to Run Virtual Clusters in Kubernetes at Scale.
-- **[Scanmetrics](https://www.vcluster.com/case-studies/scanmetrix)**: Scanmetrix Achieved 99% Faster Customer Deployments with vCluster
-- **[Trade Connectors](https://www.vcluster.com/case-studies/trade-connectors)**: Trade Connectors Optimized Kubernetes Cost with Multi-Tenancy from vCluster.
-- **ABBYY**
-- **Aera**
-- **Lintasarta**
-- **Precisely**
-- **Shipwire**
-
-Are you using vCluster? We'd love to hear your story! Please [open a pull request](https://github.com/loft-sh/vcluster/pulls) to add your name here, or [contact us](mailto:contact@loft.sh).
+vCluster is licensed under the **[Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)**.
 
 ---
 
-### 📜 License
-vCluster is licensed under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0).
+<div align="center">
 
-### Copyright
+**© 2025 [Loft Labs](https://loft.sh). All rights reserved.**
 
-© 2025 [Loft Labs](https://loft.sh). All rights reserved.
-This project and its maintainers are committed to fostering a welcoming, inclusive, and respectful community.
+Made with ❤️ by the vCluster community.
 
+⭐ **Star us on GitHub** — it helps!
+
+</div>
