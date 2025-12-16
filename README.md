@@ -79,12 +79,12 @@ kubectl get namespaces
 
 | Use Case | Description | Learn More |
 |----------|-------------|------------|
-| **GPU & AI** | Isolate AI workloads without GPU waste. Run secure, scalable AI environments without cluster sprawl or wasted GPUs. | [View Solutions →](https://www.vcluster.com/solutions/gpu-ai) |
-| **Bare Metal K8s** | Run Kubernetes on bare metal with zero VMs. Virtual clusters and private nodes give you isolation without expensive overhead. | [View Solutions →](https://www.vcluster.com/solutions/bare-metal-kubernetes) |
-| **Platform Engineering** | Build multi-tenant Kubernetes platforms. Give every team isolated, self-service access without managing more clusters. | [View Solutions →](https://www.vcluster.com/solutions/platform-engineering) |
-| **Dev & Test Environments** | Spin up isolated environments in seconds. Perfect for CI/CD pipelines, testing, and developer sandboxes. | [Get Started →](https://www.vcluster.com/docs/get-started) |
-| **Hosted Software (SaaS)** | Ship Kubernetes-native software to customers. Each customer gets their own isolated virtual cluster. | [View Solutions →](https://www.vcluster.com/solutions/ship-hosted-software) |
-| **Cost Optimization** | Cut Kubernetes costs by consolidating clusters. Use sleep mode to pause inactive environments. | [View Solutions →](https://www.vcluster.com/solutions/cut-kubernetes-costs) |
+| **GPU & AI** | Isolate AI workloads without GPU waste. Secure, scalable AI environments without cluster sprawl. | [Solutions →](https://www.vcluster.com/solutions) |
+| **Bare Metal K8s** | Run Kubernetes on bare metal with zero VMs. Get isolation without expensive overhead. | [Solutions →](https://www.vcluster.com/solutions) |
+| **Platform Engineering** | Build multi-tenant Kubernetes platforms. Self-service access without managing more clusters. | [Solutions →](https://www.vcluster.com/solutions) |
+| **Dev & Test Environments** | Spin up isolated environments in seconds. Perfect for CI/CD pipelines and sandboxes. | [Docs →](https://www.vcluster.com/docs/get-started) |
+| **Hosted Software (SaaS)** | Ship Kubernetes-native software. Each customer gets their own isolated virtual cluster. | [Solutions →](https://www.vcluster.com/solutions) |
+| **Cost Optimization** | Cut Kubernetes costs by consolidating clusters. Use sleep mode to pause inactive clusters. | [Solutions →](https://www.vcluster.com/solutions) |
 
 ---
 
@@ -162,25 +162,16 @@ privateNodes:
 
 ## ✨ Key Features
 
-### ⚡ Auto Nodes <sup>v0.28+</sup>
-Dynamic autoscaling powered by [Karpenter](https://karpenter.sh/). Automatically provision and deprovision private nodes based on workload demand—works across public cloud, private cloud, hybrid, and bare metal.
-
-👉 **[Auto Nodes Docs](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/auto-nodes)**
-
-### 🔄 Resource Syncing
-Sync any Kubernetes resource between virtual and host clusters. Built-in support for pods, services, secrets, configmaps, and CRDs.
-
-### 🔌 Integrations
-Native integrations with cert-manager, external-secrets, KubeVirt, Istio, and metrics-server.
-
-### 📊 High Availability
-Run multiple replicas with leader election. Use embedded etcd or external databases (PostgreSQL, MySQL, RDS) as backing stores.
-
-### 💤 Sleep Mode
-Automatically pause inactive virtual clusters to save resources. Wake them instantly when needed.
-
-### 🔐 Central Admission Control
-Enforce policies across virtual clusters with centralized validating and mutating webhooks.
+| Feature | Description |
+|---------|-------------|
+| **🎛️ Isolated Control Plane** | Each vCluster gets its own API server, controller manager, and data store—complete Kubernetes API isolation |
+| **🔗 Shared Platform Stack** | Leverage the host cluster's CNI, CSI, ingress, and other infrastructure—no duplicate platform components |
+| **🔒 Security & Multi-Tenancy** | Tenants get admin access inside their vCluster while having minimal permissions on the host cluster |
+| **🔄 Resource Syncing** | Bidirectional sync of any Kubernetes resource. Pods, services, secrets, configmaps, CRDs, and more |
+| **💤 Sleep Mode** | Pause inactive virtual clusters to save resources. Instant wake when needed |
+| **🔌 Integrations** | Native support for cert-manager, external-secrets, KubeVirt, Istio, and metrics-server |
+| **📊 High Availability** | Multiple replicas with leader election. Embedded etcd or external databases (PostgreSQL, MySQL, RDS) |
+| **⚡ Auto Nodes** | Karpenter-powered autoscaling for private nodes across any infrastructure <sup>v0.28+</sup> |
 
 ---
 
