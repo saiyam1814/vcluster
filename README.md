@@ -77,67 +77,27 @@ kubectl get namespaces
 
 ## 🎯 Use Cases
 
-### GPU & AI Infrastructure
-
-Build your internal GPU cloud with vCluster. Developers get fast, secure access to GPUs, and your organization maximizes utilization of every card—without sacrificing isolation.
-
-👉 **[GPU & AI Solutions](https://www.vcluster.com/solutions/gpu-ai)**
-
-```yaml
-# vcluster.yaml - GPU tenant isolation
-sync:
-  fromHost:
-    nodes:
-      enabled: true
-      selector:
-        labels:
-          nvidia.com/gpu: "true"
-```
-
-### Bare Metal Kubernetes
-
-Run Kubernetes on bare metal with zero VMs. Virtual clusters and virtual nodes give you isolation without the expensive overhead.
-
-👉 **[Bare Metal Solutions](https://www.vcluster.com/solutions/bare-metal-kubernetes)**
-
-```yaml
-# vcluster.yaml - Standalone on bare metal
-controlPlane:
-  standalone:
-    enabled: true
-    joinNode: 
-      enabled: true
-privateNodes:
-  enabled: true
-```
-
-### Platform Engineering
-
-Build secure, scalable, multi-tenant Kubernetes environments. Empower every team with isolated, self-service access—without managing more physical clusters.
-
-👉 **[Platform Engineering Solutions](https://www.vcluster.com/solutions/platform-engineering)**
-
-```yaml
-# vcluster.yaml - Multi-tenant platform
-networking:
-  podCIDR: "10.244.0.0/16"
-policies:
-  networkPolicy:
-    enabled: true
-  resourceQuota:
-    enabled: true
-```
+| Use Case | Description | Learn More |
+|----------|-------------|------------|
+| **GPU & AI** | Isolate AI workloads without GPU waste. Run secure, scalable AI environments without cluster sprawl or wasted GPUs. | [View Solutions →](https://www.vcluster.com/solutions/gpu-ai) |
+| **Bare Metal K8s** | Run Kubernetes on bare metal with zero VMs. Virtual clusters and private nodes give you isolation without expensive overhead. | [View Solutions →](https://www.vcluster.com/solutions/bare-metal-kubernetes) |
+| **Platform Engineering** | Build multi-tenant Kubernetes platforms. Give every team isolated, self-service access without managing more clusters. | [View Solutions →](https://www.vcluster.com/solutions/platform-engineering) |
+| **Dev & Test Environments** | Spin up isolated environments in seconds. Perfect for CI/CD pipelines, testing, and developer sandboxes. | [Get Started →](https://www.vcluster.com/docs/get-started) |
+| **Hosted Software (SaaS)** | Ship Kubernetes-native software to customers. Each customer gets their own isolated virtual cluster. | [View Solutions →](https://www.vcluster.com/solutions/ship-hosted-software) |
+| **Cost Optimization** | Cut Kubernetes costs by consolidating clusters. Use sleep mode to pause inactive environments. | [View Solutions →](https://www.vcluster.com/solutions/cut-kubernetes-costs) |
 
 ---
 
 ## 🏗️ Architectures
 
-vCluster offers multiple deployment architectures to match your isolation and infrastructure requirements. Each architecture builds on the previous, offering progressively more isolation.
+vCluster offers multiple deployment architectures. Each builds on the previous, offering progressively more isolation.
 
 👉 **[Full Architecture Guide](https://www.vcluster.com/docs/vcluster/deploy/architecture)**
 
-### Shared Nodes
-Virtual clusters share the host cluster's nodes. Workloads run as regular pods in a namespace. Lightweight and cost-effective.
+<details>
+<summary><strong>Shared Nodes</strong> — Maximum density, minimum cost</summary>
+
+Virtual clusters share the host cluster's nodes. Workloads run as regular pods in a namespace.
 
 ```yaml
 sync:
@@ -145,8 +105,11 @@ sync:
     nodes:
       enabled: false  # Uses pseudo nodes
 ```
+</details>
 
-### Dedicated Nodes
+<details>
+<summary><strong>Dedicated Nodes</strong> — Isolated compute on labeled node pools</summary>
+
 Virtual clusters get their own set of labeled host nodes. Workloads are isolated but still managed by the host.
 
 ```yaml
@@ -158,8 +121,11 @@ sync:
         labels:
           tenant: my-tenant
 ```
+</details>
 
-### Private Nodes <sup>v0.27+</sup>
+<details>
+<summary><strong>Private Nodes</strong> <sup>v0.27+</sup> — Full CNI/CSI isolation</summary>
+
 External nodes join the virtual cluster directly with their own CNI, CSI, and networking stack. Complete workload isolation from the host cluster.
 
 👉 **[Private Nodes Docs](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/private-nodes)**
@@ -172,8 +138,11 @@ controlPlane:
     spec:
       type: NodePort
 ```
+</details>
 
-### vCluster Standalone <sup>v0.29+</sup>
+<details>
+<summary><strong>vCluster Standalone</strong> <sup>v0.29+</sup> — No host cluster required</summary>
+
 Run vCluster without any host cluster. Deploy the control plane directly on bare metal or VMs. The highest level of isolation—vCluster becomes the cluster.
 
 👉 **[Standalone Docs](https://www.vcluster.com/docs/vcluster/deploy/standalone)**
@@ -187,6 +156,7 @@ controlPlane:
 privateNodes:
   enabled: true
 ```
+</details>
 
 ---
 
