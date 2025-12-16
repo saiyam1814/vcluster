@@ -79,12 +79,12 @@ kubectl get namespaces
 
 | Use Case | Description | Learn More |
 |----------|-------------|------------|
-| **GPU & AI** | Isolate AI workloads without GPU waste. Secure, scalable AI environments without cluster sprawl. | [Solutions →](https://www.vcluster.com/solutions) |
-| **Bare Metal K8s** | Run Kubernetes on bare metal with zero VMs. Get isolation without expensive overhead. | [Solutions →](https://www.vcluster.com/solutions) |
-| **Platform Engineering** | Build multi-tenant Kubernetes platforms. Self-service access without managing more clusters. | [Solutions →](https://www.vcluster.com/solutions) |
-| **Dev & Test Environments** | Spin up isolated environments in seconds. Perfect for CI/CD pipelines and sandboxes. | [Docs →](https://www.vcluster.com/docs/get-started) |
-| **Hosted Software (SaaS)** | Ship Kubernetes-native software. Each customer gets their own isolated virtual cluster. | [Solutions →](https://www.vcluster.com/solutions) |
-| **Cost Optimization** | Cut Kubernetes costs by consolidating clusters. Use sleep mode to pause inactive clusters. | [Solutions →](https://www.vcluster.com/solutions) |
+| **GPU Cloud Providers** | Launch managed K8s for GPUs. Give customers isolated, production-grade Kubernetes fast. | [View →](https://www.vcluster.com/solutions/gpu-cloud-providers) |
+| **Internal GPU Platform** | Maximize GPU utilization without sacrificing isolation. Self-service access for AI/ML teams. | [View →](https://www.vcluster.com/solutions/internal-gpu-platform) |
+| **AI Factory** | Run AI on-prem where your data lives. Multi-tenant K8s for training, fine-tuning, inference. | [View →](https://www.vcluster.com/solutions/ai-factory) |
+| **Bare Metal K8s** | Run Kubernetes on bare metal with zero VMs. Isolation without expensive overhead. | [View →](https://www.vcluster.com/solutions/bare-metal-kubernetes) |
+| **Software Vendors** | Ship Kubernetes-native software. Each customer gets their own isolated virtual cluster. | [View →](https://www.vcluster.com/solutions/software-vendors) |
+| **Cost Savings** | Cut Kubernetes costs by consolidating clusters. Sleep mode pauses inactive clusters. | [View →](https://www.vcluster.com/cost-savings) |
 
 ---
 
