@@ -63,11 +63,25 @@ kubectl get namespaces
 
 ---
 
+## 🆕 What's New
+
+| Version | Feature | Description |
+|---------|---------|-------------|
+| **v0.29** | [Standalone Mode](https://www.vcluster.com/docs/vcluster/deploy/standalone) | Run vCluster without a host cluster—directly on bare metal or VMs |
+| **v0.28** | [Auto Nodes](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/auto-nodes) | Karpenter-powered dynamic autoscaling for private nodes |
+| **v0.27** | [Private Nodes](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/private-nodes) | External nodes with full CNI/CSI isolation |
+
+👉 **[Full Changelog](https://github.com/loft-sh/vcluster/releases)**
+
+---
+
 ## 🎯 Use Cases
 
 ### GPU & AI Infrastructure
 
 Build your internal GPU cloud with vCluster. Developers get fast, secure access to GPUs, and your organization maximizes utilization of every card—without sacrificing isolation.
+
+👉 **[GPU & AI Solutions](https://www.vcluster.com/solutions/gpu-ai)**
 
 ```yaml
 # vcluster.yaml - GPU tenant isolation
@@ -84,6 +98,8 @@ sync:
 
 Run Kubernetes on bare metal with zero VMs. Virtual clusters and virtual nodes give you isolation without the expensive overhead.
 
+👉 **[Bare Metal Solutions](https://www.vcluster.com/solutions/bare-metal-kubernetes)**
+
 ```yaml
 # vcluster.yaml - Standalone on bare metal
 controlPlane:
@@ -99,6 +115,8 @@ privateNodes:
 
 Build secure, scalable, multi-tenant Kubernetes environments. Empower every team with isolated, self-service access—without managing more physical clusters.
 
+👉 **[Platform Engineering Solutions](https://www.vcluster.com/solutions/platform-engineering)**
+
 ```yaml
 # vcluster.yaml - Multi-tenant platform
 networking:
@@ -112,69 +130,72 @@ policies:
 
 ---
 
-## 🏗️ Tenancy Models
+## 🏗️ Architectures
 
-vCluster supports flexible tenancy to match your isolation requirements:
+vCluster offers multiple deployment architectures to match your isolation and infrastructure requirements. Each architecture builds on the previous, offering progressively more isolation.
 
-| Model | Description | Use Case |
-|-------|-------------|----------|
-| **Shared Nodes** | Virtual clusters share the host's nodes and plugins | Dev environments, cost optimization |
-| **Dedicated Nodes** | Virtual clusters run on their own set of host-assigned nodes | Production workloads, tenant isolation |
-| **Private Nodes** | Fully separate nodes with their own CNI, CSI, and control | Maximum isolation, compliance |
+👉 **[Full Architecture Guide](https://www.vcluster.com/docs/vcluster/deploy/architecture)**
 
-<details>
-<summary><strong>Shared Nodes Example</strong></summary>
+### Shared Nodes
+Virtual clusters share the host cluster's nodes. Workloads run as regular pods in a namespace. Lightweight and cost-effective.
 
 ```yaml
-# vcluster.yaml
 sync:
   fromHost:
     nodes:
-      enabled: false  # Use pseudo nodes
+      enabled: false  # Uses pseudo nodes
 ```
-</details>
 
-<details>
-<summary><strong>Dedicated Nodes Example</strong></summary>
+### Dedicated Nodes
+Virtual clusters get their own set of labeled host nodes. Workloads are isolated but still managed by the host.
 
 ```yaml
-# vcluster.yaml
 sync:
   fromHost:
     nodes:
       enabled: true
       selector:
         labels:
-          tenant: tenant-1
+          tenant: my-tenant
 ```
-</details>
 
-<details>
-<summary><strong>Private Nodes Example</strong></summary>
+### Private Nodes <sup>v0.27+</sup>
+External nodes join the virtual cluster directly with their own CNI, CSI, and networking stack. Complete workload isolation from the host cluster.
+
+👉 **[Private Nodes Docs](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/private-nodes)**
 
 ```yaml
-# vcluster.yaml
 privateNodes:
   enabled: true
 controlPlane:
   service:
     spec:
-      type: NodePort  # or LoadBalancer
+      type: NodePort
 ```
-</details>
+
+### vCluster Standalone <sup>v0.29+</sup>
+Run vCluster without any host cluster. Deploy the control plane directly on bare metal or VMs. The highest level of isolation—vCluster becomes the cluster.
+
+👉 **[Standalone Docs](https://www.vcluster.com/docs/vcluster/deploy/standalone)**
+
+```yaml
+controlPlane:
+  standalone:
+    enabled: true
+    joinNode:
+      enabled: true
+privateNodes:
+  enabled: true
+```
 
 ---
 
 ## ✨ Key Features
 
-### 🔒 Private Nodes <sup>NEW</sup>
-Assign dedicated worker nodes to virtual clusters with complete isolation. Workloads run directly on private nodes with their own CNI, CSI, and networking stack.
+### ⚡ Auto Nodes <sup>v0.28+</sup>
+Dynamic autoscaling powered by [Karpenter](https://karpenter.sh/). Automatically provision and deprovision private nodes based on workload demand—works across public cloud, private cloud, hybrid, and bare metal.
 
-### ⚡ Auto Nodes <sup>NEW</sup>
-Dynamic autoscaling powered by [Karpenter](https://karpenter.sh/). Scale virtual clusters across public cloud, private cloud, hybrid, and bare metal—eliminating cloud vendor lock-in.
-
-### 🖥️ Standalone Mode <sup>NEW</sup>
-Run vCluster directly on bare metal or VMs without a host cluster. Deploy the control plane on dedicated nodes for maximum isolation.
+👉 **[Auto Nodes Docs](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/auto-nodes)**
 
 ### 🔄 Resource Syncing
 Sync any Kubernetes resource between virtual and host clusters. Built-in support for pods, services, secrets, configmaps, and CRDs.
@@ -185,30 +206,38 @@ Native integrations with cert-manager, external-secrets, KubeVirt, Istio, and me
 ### 📊 High Availability
 Run multiple replicas with leader election. Use embedded etcd or external databases (PostgreSQL, MySQL, RDS) as backing stores.
 
+### 💤 Sleep Mode
+Automatically pause inactive virtual clusters to save resources. Wake them instantly when needed.
+
+### 🔐 Central Admission Control
+Enforce policies across virtual clusters with centralized validating and mutating webhooks.
+
+---
+
+## 📊 Architecture Comparison
+
+| Architecture | Host Cluster Required | Node Isolation | CNI/CSI Isolation | Best For |
+|-------------|:--------------------:|:--------------:|:-----------------:|----------|
+| **Shared Nodes** | ✅ | ❌ | ❌ | Dev/test, cost savings |
+| **Dedicated Nodes** | ✅ | ✅ | ❌ | Production multi-tenancy |
+| **Private Nodes** | ✅ | ✅ | ✅ | Compliance, GPU workloads |
+| **Standalone** | ❌ | ✅ | ✅ | Bare metal, edge, air-gapped |
+
 ---
 
 ## 🌍 Deploy Anywhere
 
-<table>
-<tr>
-<td align="center"><strong>EKS</strong></td>
-<td align="center"><strong>GKE</strong></td>
-<td align="center"><strong>AKS</strong></td>
-<td align="center"><strong>OpenShift</strong></td>
-<td align="center"><strong>Rancher</strong></td>
-</tr>
-<tr>
-<td align="center"><strong>Bare Metal</strong></td>
-<td align="center"><strong>KubeVirt</strong></td>
-<td align="center"><strong>Tanzu</strong></td>
-<td align="center"><strong>Private Cloud</strong></td>
-<td align="center"><strong>Standalone</strong></td>
-</tr>
-</table>
+**Cloud:** EKS • GKE • AKS • DigitalOcean • Linode
+
+**On-Prem:** OpenShift • Rancher • Tanzu • Private Cloud
+
+**Bare Metal:** Standalone Mode • Private Nodes
+
+**Virtualization:** KubeVirt • Proxmox • VMware
 
 ---
 
-## 📖 Architecture
+## 🔧 How It Works
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -236,6 +265,8 @@ Each virtual cluster includes:
 - **Dedicated API server** — Full Kubernetes API isolation
 - **Syncer** — Bi-directional resource synchronization  
 - **Optional components** — Scheduler, CoreDNS, etcd
+
+👉 **[Detailed Architecture Docs](https://www.vcluster.com/docs/vcluster/deploy/architecture)**
 
 ---
 
