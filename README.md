@@ -17,9 +17,9 @@
 ### Flexible Tenancy For Kubernetes and AI Infra
 
 [![GitHub stars](https://img.shields.io/github/stars/loft-sh/vcluster?style=for-the-badge&logo=github&color=orange)](https://github.com/loft-sh/vcluster/stargazers)
-[![Slack](https://img.shields.io/badge/Slack-4.2K+-blue?style=for-the-badge&logo=slack)](https://slack.loft.sh/)
+[![Slack](https://img.shields.io/badge/Slack-4K+-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://slack.loft.sh/)
+[![X (Twitter)](https://img.shields.io/badge/Follow-@loft__sh-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/loft_sh)
 [![License](https://img.shields.io/github/license/loft-sh/vcluster?style=for-the-badge)](https://github.com/loft-sh/vcluster/blob/main/LICENSE)
-[![Contributors](https://img.shields.io/github/contributors/loft-sh/vcluster?style=for-the-badge&logo=github)](https://github.com/loft-sh/vcluster/graphs/contributors)
 
 **[Website](https://www.vcluster.com)** • **[Quickstart](https://www.vcluster.com/docs/get-started/)** • **[Documentation](https://www.vcluster.com/docs/what-are-virtual-clusters)** • **[Blog](https://loft.sh/blog)** • **[Slack](https://slack.loft.sh/)**
 
