@@ -87,7 +87,7 @@ No Kubernetes cluster? Try vCluster instantly in your browser:
 
 vCluster offers multiple deployment architectures. Each builds on the previous, offering progressively more isolation.
 
-👉 **[Full Architecture Guide](https://www.vcluster.com/docs/vcluster/deploy/architecture)**
+👉 **[Full Architecture Guide](https://www.vcluster.com/docs/vcluster/introduction/architecture/)**
 
 <details>
 <summary><strong>Shared Nodes</strong> — Maximum density, minimum cost</summary>
