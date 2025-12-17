@@ -6,8 +6,7 @@
       <img alt="vCluster" src="docs/static/media/vcluster_horizontal_orange_white.svg" width="400">
     </picture>
   </a>
-
-### Flexible Tenancy For Kubernetes and AI Infra
+  <p><strong>Flexible Tenancy For Kubernetes and AI Infra</strong></p>
 
 [![GitHub stars](https://img.shields.io/github/stars/loft-sh/vcluster?style=for-the-badge&logo=github&color=orange)](https://github.com/loft-sh/vcluster/stargazers)
 [![Slack](https://img.shields.io/badge/Slack-4.2K+-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://slack.loft.sh/)
