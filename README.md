@@ -1,25 +1,18 @@
 <div align="center">
-  <a href="https://www.vcluster.com" target="_blank">
-
-<picture>
-      <!-- For Dark Mode -->
+  <a href="https://www.vcluster.com">
+    <picture>
       <source media="(prefers-color-scheme: dark)" srcset="docs/static/media/vcluster_horizontal_orange_white.svg">
-      <!-- For Light Mode -->
       <source media="(prefers-color-scheme: light)" srcset="docs/static/media/vcluster_horizontal_orange_black.svg">
-      <!-- Fallback -->
-      <img alt="vCluster Logo" src="docs/static/media/vcluster_horizontal_orange_white.svg" width="600">
-</picture>	  
-
+      <img alt="vCluster" src="docs/static/media/vcluster_horizontal_orange_white.svg" width="400">
+    </picture>
   </a>
-
-<br/><br/>
 
 ### Flexible Tenancy For Kubernetes and AI Infra
 
 [![GitHub stars](https://img.shields.io/github/stars/loft-sh/vcluster?style=for-the-badge&logo=github&color=orange)](https://github.com/loft-sh/vcluster/stargazers)
 [![Slack](https://img.shields.io/badge/Slack-4.2K+-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://slack.loft.sh/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-14K+-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/vcluster)
 [![X](https://img.shields.io/badge/X-3.5K+-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/loft_sh)
-[![License](https://img.shields.io/github/license/loft-sh/vcluster?style=for-the-badge)](https://github.com/loft-sh/vcluster/blob/main/LICENSE)
 
 **[Website](https://www.vcluster.com)** • **[Quickstart](https://www.vcluster.com/docs/get-started/)** • **[Documentation](https://www.vcluster.com/docs/what-are-virtual-clusters)** • **[Blog](https://loft.sh/blog)** • **[Slack](https://slack.loft.sh/)**
 
@@ -50,9 +43,6 @@ brew install loft-sh/tap/vcluster
 # Create a virtual cluster
 vcluster create my-vcluster --namespace team-x
 
-# Connect to the virtual cluster
-vcluster connect my-vcluster --namespace team-x
-
 # Use kubectl as usual - you're now in your virtual cluster!
 kubectl get namespaces
 ```
@@ -60,6 +50,12 @@ kubectl get namespaces
 **Prerequisites:** A running Kubernetes cluster and `kubectl` configured.
 
 👉 **[Full Quickstart Guide](https://www.vcluster.com/docs/get-started)**
+
+### 🎮 Try Without Installing
+
+No Kubernetes cluster? Try vCluster instantly in your browser:
+
+[![Try on Killercoda](https://img.shields.io/badge/Try%20on-Killercoda-22B573?style=for-the-badge&logo=kubernetes&logoColor=white)](https://killercoda.com/vcluster)
 
 ---
 
@@ -315,15 +311,7 @@ Each virtual cluster includes:
 
 ## 🤝 Contributing
 
-We love contributions! Whether it's bug fixes, new features, or documentation improvements.
-
-```bash
-# Quick start with DevPod
-```
-
-[![Open in DevPod!](https://devpod.sh/assets/open-in-devpod.svg)](https://devpod.sh/open#https://github.com/loft-sh/vcluster)
-
-👉 **[Contributing Guide](https://github.com/loft-sh/vcluster/blob/main/CONTRIBUTING.md)**
+We welcome contributions! Check out our **[Contributing Guide](https://github.com/loft-sh/vcluster/blob/main/CONTRIBUTING.md)** to get started.
 
 ---
 
