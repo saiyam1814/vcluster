@@ -222,7 +222,7 @@ Each virtual cluster includes:
 - **Syncer** — Bi-directional resource synchronization  
 - **Optional components** — Scheduler, CoreDNS, etcd
 
-👉 **[Detailed Architecture Docs](https://www.vcluster.com/docs/vcluster/deploy/architecture)**
+👉 **[Detailed Architecture Docs](https://www.vcluster.com/docs/vcluster/introduction/architecture/)**
 
 ---
 
