@@ -62,11 +62,11 @@ No Kubernetes cluster? Try vCluster instantly in your browser:
 
 | Version | Feature | Description |
 |---------|---------|-------------|
-| **v0.29** | [Standalone Mode](https://www.vcluster.com/docs/vcluster/deploy/standalone) | Run vCluster without a host cluster—directly on bare metal or VMs |
-| **v0.28** | [Auto Nodes](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/auto-nodes) | Karpenter-powered dynamic autoscaling for private nodes |
+| **v0.29** | [Standalone Mode](https://www.vcluster.com/docs/vcluster/deploy/control-plane/binary/) | Run vCluster without a host cluster—directly on bare metal or VMs |
+| **v0.28** | [Auto Nodes](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/private-nodes/auto-nodes/) | Karpenter-powered dynamic autoscaling for private nodes |
 | **v0.27** | [Private Nodes](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/private-nodes) | External nodes with full CNI/CSI isolation |
 
-👉 **[Full Changelog](https://github.com/loft-sh/vcluster/releases)**
+👉 **[Full Changelog](https://www.vcluster.com/releases)**
 
 ---
 
