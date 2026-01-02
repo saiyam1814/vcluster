@@ -62,9 +62,11 @@ No Kubernetes cluster? Try vCluster instantly in your browser:
 
 | Version | Feature | Description |
 |---------|---------|-------------|
+| **v0.30** | [vCluster VPN & Netris Integration](https://www.vcluster.com/releases) | Tailscale-powered overlay network and automated network isolation for hybrid infrastructures |
 | **v0.29** | [Standalone Mode](https://www.vcluster.com/docs/vcluster/deploy/control-plane/binary/) | Run vCluster without a host cluster—directly on bare metal or VMs |
 | **v0.28** | [Auto Nodes](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/private-nodes/auto-nodes/) | Karpenter-powered dynamic autoscaling for private nodes |
 | **v0.27** | [Private Nodes](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/private-nodes) | External nodes with full CNI/CSI isolation |
+| **v0.26** | [Hybrid Scheduling & Namespace Syncing](https://www.vcluster.com/releases) | Multiple scheduler support for AI/ML workloads and fine-grained namespace synchronization |
 
 👉 **[Full Changelog](https://www.vcluster.com/releases)**
 
