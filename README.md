@@ -13,7 +13,7 @@
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-14K+-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/vcluster)
 [![X](https://img.shields.io/badge/X-3.5K+-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/loft_sh)
 
-**[Website](https://www.vcluster.com)** • **[Quickstart](https://www.vcluster.com/docs/get-started/)** • **[Documentation](https://www.vcluster.com/docs/what-are-virtual-clusters)** • **[Blog](https://loft.sh/blog)** • **[Slack](https://slack.loft.sh/)**
+**[Website](https://www.vcluster.com)** • **[Quickstart](https://www.vcluster.com/docs/get-started/)** • **[Documentation](https://www.vcluster.com/docs/vcluster/introduction/what-are-virtual-clusters)** • **[Blog](https://loft.sh/blog)** • **[Slack](https://slack.loft.sh/)**
 
 </div>
 
@@ -87,12 +87,44 @@ No Kubernetes cluster? Try vCluster instantly in your browser:
 
 vCluster offers multiple deployment architectures. Each builds on the previous, offering progressively more isolation.
 
+### Architecture Comparison
+
+| | **Shared Nodes** | **Dedicated Nodes** | **Private Nodes** | **Standalone** |
+|---|:---:|:---:|:---:|:---:|
+| **Host Cluster** | Required | Required | Required | Not Required |
+| **Node Isolation** | ❌ | ✅ | ✅ | ✅ |
+| **CNI/CSI Isolation** | ❌ | ❌ | ✅ | ✅ |
+| **Best For** | Dev/test, cost | Production | Compliance, GPU | Bare metal, edge |
+
 👉 **[Full Architecture Guide](https://www.vcluster.com/docs/vcluster/introduction/architecture/)**
 
+### Minimal Configuration
+
+**Step 1:** Create a `vcluster.yaml`:
+
+```yaml
+# Shared Nodes (default) - no config needed
+# Or customize for your architecture:
+sync:
+  fromHost:
+    nodes:
+      enabled: false  # Shared Nodes
+```
+
+**Step 2:** Apply it:
+
+```bash
+vcluster create my-vcluster -f vcluster.yaml
+```
+
 <details>
-<summary><strong>Shared Nodes</strong> — Maximum density, minimum cost</summary>
+<summary><strong>🔹 Shared Nodes</strong> — Maximum density, minimum cost</summary>
 
 Virtual clusters share the host cluster's nodes. Workloads run as regular pods in a namespace.
+
+<div align="center">
+<img src="https://www.vcluster.com/docs/media/diagrams/vcluster-architecture-shared-nodes.svg" alt="Shared Nodes Architecture" width="600">
+</div>
 
 ```yaml
 sync:
@@ -103,9 +135,13 @@ sync:
 </details>
 
 <details>
-<summary><strong>Dedicated Nodes</strong> — Isolated compute on labeled node pools</summary>
+<summary><strong>🔹 Dedicated Nodes</strong> — Isolated compute on labeled node pools</summary>
 
 Virtual clusters get their own set of labeled host nodes. Workloads are isolated but still managed by the host.
+
+<div align="center">
+<img src="https://www.vcluster.com/docs/media/diagrams/vcluster-architecture-dedicated-nodes.svg" alt="Dedicated Nodes Architecture" width="600">
+</div>
 
 ```yaml
 sync:
@@ -119,9 +155,13 @@ sync:
 </details>
 
 <details>
-<summary><strong>Private Nodes</strong> <sup>v0.27+</sup> — Full CNI/CSI isolation</summary>
+<summary><strong>🔹 Private Nodes</strong> <sup>v0.27+</sup> — Full CNI/CSI isolation</summary>
 
 External nodes join the virtual cluster directly with their own CNI, CSI, and networking stack. Complete workload isolation from the host cluster.
+
+<div align="center">
+<img src="https://www.vcluster.com/docs/media/diagrams/vcluster-architecture-private-nodes.svg" alt="Private Nodes Architecture" width="600">
+</div>
 
 👉 **[Private Nodes Docs](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/private-nodes)**
 
@@ -136,11 +176,15 @@ controlPlane:
 </details>
 
 <details>
-<summary><strong>vCluster Standalone</strong> <sup>v0.29+</sup> — No host cluster required</summary>
+<summary><strong>🔹 vCluster Standalone</strong> <sup>v0.29+</sup> — No host cluster required</summary>
 
 Run vCluster without any host cluster. Deploy the control plane directly on bare metal or VMs. The highest level of isolation—vCluster becomes the cluster.
 
-👉 **[Standalone Docs](https://www.vcluster.com/docs/vcluster/deploy/standalone)**
+<div align="center">
+<img src="https://www.vcluster.com/docs/media/diagrams/vcluster-architecture-standalone.svg" alt="Standalone Architecture" width="600">
+</div>
+
+👉 **[Standalone Docs](https://www.vcluster.com/docs/vcluster/deploy/control-plane/binary/)**
 
 ```yaml
 controlPlane:
@@ -148,6 +192,26 @@ controlPlane:
     enabled: true
     joinNode:
       enabled: true
+privateNodes:
+  enabled: true
+```
+</details>
+
+<details>
+<summary><strong>⚡ Auto Nodes</strong> <sup>v0.28+</sup> — Karpenter-powered dynamic autoscaling</summary>
+
+Automatically provision and deprovision private nodes based on workload demand. Works across public cloud, private cloud, hybrid, and bare metal environments.
+
+<div align="center">
+<img src="https://www.vcluster.com/docs/media/diagrams/vcluster-architecture-auto-nodes.svg" alt="Auto Nodes Architecture" width="600">
+</div>
+
+👉 **[Auto Nodes Docs](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/private-nodes/auto-nodes/)**
+
+```yaml
+autoNodes:
+  enabled: true
+  nodeProvider: <provider>
 privateNodes:
   enabled: true
 ```
@@ -166,100 +230,22 @@ privateNodes:
 | **💤 Sleep Mode** | Pause inactive virtual clusters to save resources. Instant wake when needed |
 | **🔌 Integrations** | Native support for cert-manager, external-secrets, KubeVirt, Istio, and metrics-server |
 | **📊 High Availability** | Multiple replicas with leader election. Embedded etcd or external databases (PostgreSQL, MySQL, RDS) |
-| **⚡ Auto Nodes** | Karpenter-powered autoscaling for private nodes across any infrastructure <sup>v0.28+</sup> |
-
----
-
-## 📊 Architecture Comparison
-
-| Architecture | Host Cluster Required | Node Isolation | CNI/CSI Isolation | Best For |
-|-------------|:--------------------:|:--------------:|:-----------------:|----------|
-| **Shared Nodes** | ✅ | ❌ | ❌ | Dev/test, cost savings |
-| **Dedicated Nodes** | ✅ | ✅ | ❌ | Production multi-tenancy |
-| **Private Nodes** | ✅ | ✅ | ✅ | Compliance, GPU workloads |
-| **Standalone** | ❌ | ✅ | ✅ | Bare metal, edge, air-gapped |
 
 ---
 
 ## 🌍 Deploy Anywhere
 
-**Cloud:** EKS • GKE • AKS • DigitalOcean • Linode
+<div align="center">
 
-**On-Prem:** OpenShift • Rancher • Tanzu • Private Cloud
+| **Cloud** | **On-Prem** | **Bare Metal** | **Virtualization** |
+|:---------:|:-----------:|:--------------:|:------------------:|
+| EKS | OpenShift | Standalone Mode | KubeVirt |
+| GKE | Rancher | Private Nodes | Proxmox |
+| AKS | Tanzu | | VMware |
+| DigitalOcean | Private Cloud | | |
+| Linode | | | |
 
-**Bare Metal:** Standalone Mode • Private Nodes
-
-**Virtualization:** KubeVirt • Proxmox • VMware
-
----
-
-## 🔧 How It Works
-
-```
-┌────────────────────────────────────────────────────────────┐
-│                     Host Cluster                           │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │              vCluster Namespace                     │   │
-│  │  ┌─────────────────────────────────────────────┐    │   │
-│  │  │           Virtual Cluster                   │    │   │
-│  │  │  ┌─────────────┐  ┌─────────────────────┐   │    │   │
-│  │  │  │ API Server  │  │  Controller Manager │   │    │   │
-│  │  │  └─────────────┘  └─────────────────────┘   │    │   │
-│  │  │  ┌─────────────┐  ┌─────────────────────┐   │    │   │
-│  │  │  │   Syncer    │  │      CoreDNS        │   │    │   │
-│  │  │  └─────────────┘  └─────────────────────┘   │    │   │
-│  │  └─────────────────────────────────────────────┘    │   │
-│  │                                                     │   │
-│  │  ┌────────────┐ ┌────────────┐ ┌────────────┐       │   │
-│  │  │  Pod (app) │ │  Pod (app) │ │  Service   │       │   │
-│  │  └────────────┘ └────────────┘ └────────────┘       │   │
-│  └─────────────────────────────────────────────────────┘   │
-└────────────────────────────────────────────────────────────┘
-```
-
-Each virtual cluster includes:
-- **Dedicated API server** — Full Kubernetes API isolation
-- **Syncer** — Bi-directional resource synchronization  
-- **Optional components** — Scheduler, CoreDNS, etcd
-
-👉 **[Detailed Architecture Docs](https://www.vcluster.com/docs/vcluster/introduction/architecture/)**
-
----
-
-## 🌟 Why vCluster?
-
-<details>
-<summary><strong>Security & Isolation</strong></summary>
-
-- **Granular permissions** — Users operate with minimized host cluster permissions while having admin-level control within their vCluster
-- **Isolated control plane** — Each vCluster has its own dedicated API server
-- **Customizable policies** — Apply OPA, network policies, resource quotas per tenant
-- **Separate backing stores** — SQLite, embedded etcd, or external databases
-</details>
-
-<details>
-<summary><strong>Full Tenant Access</strong></summary>
-
-- **Admin capabilities** — Deploy CRDs, create namespaces, manage cluster-scoped resources
-- **Isolated networking** — Pods in different virtual clusters cannot communicate by default
-- **Node management** — Assign static nodes or share node pools
-</details>
-
-<details>
-<summary><strong>Cost Efficiency</strong></summary>
-
-- **Lightweight** — Spin up clusters in seconds (vs. ~45 min for EKS)
-- **Resource sharing** — Minimize infrastructure by sharing host resources
-- **Single pod control plane** — Minimal operational overhead
-</details>
-
-<details>
-<summary><strong>Flexibility</strong></summary>
-
-- **Multi-version support** — Run different Kubernetes versions with version skew
-- **Multiple distros** — K8s, K3s, and more
-- **Adaptable storage** — SQLite to enterprise etcd to RDS
-</details>
+</div>
 
 ---
 
@@ -267,35 +253,45 @@ Each virtual cluster includes:
 
 <table>
 <tr>
-<td><strong>Atlan</strong><br/>100 → 1 clusters</td>
-<td><strong>Aussie Broadband</strong><br/>99% faster provisioning</td>
-<td><strong>CoreWeave</strong><br/>GPU cloud at scale</td>
+<td align="center"><a href="https://www.vcluster.com/case-studies/atlan"><strong>Atlan</strong></a><br/>100 → 1 clusters</td>
+<td align="center"><a href="https://www.vcluster.com/case-studies/aussie-broadband"><strong>Aussie Broadband</strong></a><br/>99% faster provisioning</td>
+<td align="center"><a href="https://www.vcluster.com/case-studies/coreweave"><strong>CoreWeave</strong></a><br/>GPU cloud at scale</td>
 </tr>
 <tr>
-<td><strong>Adobe</strong><br/>Enhanced dev environments</td>
-<td><strong>Codefresh</strong><br/>Hosted ArgoCD</td>
-<td><strong>Scanmetrix</strong><br/>99% faster deployments</td>
+<td align="center"><a href="https://www.vcluster.com/case-studies/adobe"><strong>Adobe</strong></a><br/>Enhanced dev environments</td>
+<td align="center"><a href="https://www.vcluster.com/case-studies/codefresh"><strong>Codefresh</strong></a><br/>Hosted ArgoCD</td>
+<td align="center"><a href="https://www.vcluster.com/case-studies/scanmetrix"><strong>Scanmetrix</strong></a><br/>99% faster deployments</td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.vcluster.com/case-studies/deloitte"><strong>Deloitte</strong></a><br/>Enterprise K8s platform</td>
+<td align="center"><a href="https://www.vcluster.com/case-studies/gofundme"><strong>GoFundMe</strong></a><br/>Developer productivity</td>
+<td align="center"><a href="https://www.vcluster.com/case-studies/nscale"><strong>NScale</strong></a><br/>AI infrastructure</td>
 </tr>
 </table>
 
 **Also used by:** NVIDIA, ABBYY, Lintasarta, Precisely, Shipwire, Trade Connectors, and many more.
 
-👉 **[View Case Studies](https://www.vcluster.com/case-studies)**
+👉 **[View All Case Studies](https://www.vcluster.com/case-studies)**
 
 ---
 
 ## 📚 Learn More
 
-### Conference Talks
+<details>
+<summary><strong>🎤 Conference Talks</strong></summary>
 
-| Event | Title | Link |
-|-------|-------|------|
-| HashiConf 2025 | GPU sharing done right with Vault and vCluster | [Watch](https://www.youtube.com/watch?v=zWx17azSqyU) |
-| KubeCon EU 2023 | How We Securely Scaled Multi-Tenancy with vCluster | [Watch](https://www.youtube.com/watch?v=hFiHU6W4_z0) |
-| KubeCon NA 2022 | How Adobe Planned For Scale With vCluster | [Watch](https://www.youtube.com/watch?v=p8BluR5WT5w) |
-| KubeCon NA 2021 | Virtual Clusters are the Future of Multi-Tenancy | [Watch](https://www.youtube.com/watch?v=QddWNqchD9I) |
+| Event | Title | Speaker | Link |
+|-------|-------|---------|------|
+| Open Source Finance Forum 2025 | Banking on Open Source: Security in Multi-Tenant Environments | Lukas Gentele, Joshua Bucknor | [Watch](https://www.youtube.com/@vcluster) |
+| HashiConf 2025 | GPU sharing done right with Vault and vCluster | Rich Burroughs | [Watch](https://www.youtube.com/watch?v=zWx17azSqyU) |
+| KubeCon EU 2023 | How We Securely Scaled Multi-Tenancy with vCluster | Atlan Team | [Watch](https://www.youtube.com/watch?v=hFiHU6W4_z0) |
+| KubeCon NA 2022 | How Adobe Planned For Scale With vCluster | Adobe Team | [Watch](https://www.youtube.com/watch?v=p8BluR5WT5w) |
+| KubeCon NA 2021 | Virtual Clusters are the Future of Multi-Tenancy | Lukas Gentele | [Watch](https://www.youtube.com/watch?v=QddWNqchD9I) |
 
-### Community Resources
+</details>
+
+<details>
+<summary><strong>🎬 Community Resources</strong></summary>
 
 | Channel | Title | Link |
 |---------|-------|------|
@@ -303,6 +299,8 @@ Each virtual cluster includes:
 | DevOps Toolkit | How To Create Virtual Kubernetes Clusters | [Watch](https://www.youtube.com/watch?v=JqBjpvp268Y) |
 | TechWorld with Nana | Build your Self-Service Kubernetes Platform | [Watch](https://www.youtube.com/watch?v=tt7hope6zU0) |
 | Kubesimplify | Let's Learn vCluster | [Watch](https://www.youtube.com/watch?v=I4mztvnRCjs) |
+
+</details>
 
 👉 **[YouTube Channel](https://www.youtube.com/@vcluster)** • **[Blog](https://loft.sh/blog)**
 
@@ -318,7 +316,7 @@ We welcome contributions! Check out our **[Contributing Guide](https://github.co
 
 | Resource | Link |
 |----------|------|
-| 📖 Documentation | [vcluster.com/docs](https://www.vcluster.com/docs/what-are-virtual-clusters) |
+| 📖 Documentation | [vcluster.com/docs](https://www.vcluster.com/docs/vcluster/introduction/what-are-virtual-clusters) |
 | 💬 Slack Community | [slack.loft.sh](https://slack.loft.sh/) |
 | 🌐 Website | [vcluster.com](https://www.vcluster.com) |
 | 🐦 X (Twitter) | [@vcluster](https://x.com/vcluster) |
