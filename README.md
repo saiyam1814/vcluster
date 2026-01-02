@@ -122,6 +122,10 @@ vcluster create my-vcluster -f vcluster.yaml
 
 Virtual clusters share the host cluster's nodes. Workloads run as regular pods in a namespace.
 
+<div align="center">
+<img src="./assets/vcluster-architecture-shared-nodes.png" alt="Shared Nodes Architecture" width="600">
+</div>
+
 ```yaml
 sync:
   fromHost:
@@ -134,6 +138,10 @@ sync:
 <summary><strong>🔹 Dedicated Nodes</strong> — Isolated compute on labeled node pools</summary>
 
 Virtual clusters get their own set of labeled host nodes. Workloads are isolated but still managed by the host.
+
+<div align="center">
+<img src="./assets/vcluster-architecture-dedicated-nodes.png" alt="Dedicated Nodes Architecture" width="600">
+</div>
 
 ```yaml
 sync:
@@ -150,6 +158,10 @@ sync:
 <summary><strong>🔹 Private Nodes</strong> <sup>v0.27+</sup> — Full CNI/CSI isolation</summary>
 
 External nodes join the virtual cluster directly with their own CNI, CSI, and networking stack. Complete workload isolation from the host cluster.
+
+<div align="center">
+<img src="./assets/vcluster-architecture-private-nodes.png" alt="Private Nodes Architecture" width="600">
+</div>
 
 👉 **[Private Nodes Docs](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/private-nodes)**
 
@@ -168,6 +180,10 @@ controlPlane:
 
 Run vCluster without any host cluster. Deploy the control plane directly on bare metal or VMs. The highest level of isolation—vCluster becomes the cluster.
 
+<div align="center">
+<img src="./assets/vcluster-architecture-standalone.png" alt="Standalone Architecture" width="600">
+</div>
+
 👉 **[Standalone Docs](https://www.vcluster.com/docs/vcluster/deploy/control-plane/binary/)**
 
 ```yaml
@@ -185,6 +201,10 @@ privateNodes:
 <summary><strong>⚡ Auto Nodes</strong> <sup>v0.28+</sup> — Karpenter-powered dynamic autoscaling</summary>
 
 Automatically provision and deprovision private nodes based on workload demand. Works across public cloud, private cloud, hybrid, and bare metal environments.
+
+<div align="center">
+<img src="./assets/vcluster-architecture-auto-nodes.png" alt="Auto Nodes Architecture" width="600">
+</div>
 
 👉 **[Auto Nodes Docs](https://www.vcluster.com/docs/vcluster/deploy/worker-nodes/private-nodes/auto-nodes/)**
 
