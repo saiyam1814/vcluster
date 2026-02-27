@@ -34,6 +34,9 @@ func ResumeDocker(ctx context.Context, globalFlags *flags.GlobalFlags, vClusterN
 	if err != nil {
 		return fmt.Errorf("failed to resume vCluster: %w", err)
 	}
+	if err := restoreMountPropagation(ctx, containerName); err != nil {
+		return fmt.Errorf("failed to restore mount propagation on control plane: %w", err)
+	}
 
 	// start the nodes
 	nodes, err := findDockerContainer(ctx, constants.DockerNodePrefix+vClusterName+".")
@@ -42,9 +45,13 @@ func ResumeDocker(ctx context.Context, globalFlags *flags.GlobalFlags, vClusterN
 	}
 	for _, node := range nodes {
 		log.Infof("Starting node %s from vCluster %s...", node.Name, vClusterName)
-		err = startDockerContainerByName(ctx, getWorkerContainerName(vClusterName, node.Name))
+		workerContainer := getWorkerContainerName(vClusterName, node.Name)
+		err = startDockerContainerByName(ctx, workerContainer)
 		if err != nil {
 			return fmt.Errorf("failed to start vCluster node: %w", err)
+		}
+		if err := restoreMountPropagation(ctx, workerContainer); err != nil {
+			return fmt.Errorf("failed to restore mount propagation on node %s: %w", node.Name, err)
 		}
 	}
 
@@ -70,6 +77,18 @@ func startDockerContainerByName(ctx context.Context, containerName string) error
 	output, err := exec.CommandContext(ctx, "docker", args...).CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("docker start failed: %w, output: %s", err, string(output))
+	}
+	return nil
+}
+
+// restoreMountPropagation re-applies rshared mount propagation on a
+// privileged container. The flag is set during vcluster create but lost
+// when the container is stopped. Without it kubelet cannot propagate
+// mounts (e.g. bpf, cgroupv2, netns) to pods.
+func restoreMountPropagation(ctx context.Context, containerName string) error {
+	output, err := exec.CommandContext(ctx, "docker", "exec", containerName, "mount", "--make-rshared", "/").CombinedOutput()
+	if err != nil {
+		return fmt.Errorf("failed to restore mount propagation: %w, output: %s", err, string(output))
 	}
 	return nil
 }
